@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏔️ 徽州周末旅行计划 · 黄山+古村</title>
+<title>🏔️ 徽州周末旅行计划 · 慢游古村 + 黄山精华</title>
 <style>
   :root {
     --pine: #2d6a4f;
@@ -46,15 +46,6 @@
     height: 50px;
     background: linear-gradient(transparent, var(--bg));
   }
-  .hero .mountains {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 120px;
-    opacity: 0.08;
-    background:
-      linear-gradient(135deg, transparent 33%, white 33%, white 34%, transparent 34%) 0 60px / 60px 60px,
-      linear-gradient(225deg, transparent 33%, white 33%, white 34%, transparent 34%) 30px 30px / 60px 60px;
-  }
   .hero h1 { font-size: 2.6em; font-weight: 800; letter-spacing: 2px; position: relative; z-index: 1; }
   .hero .subtitle { font-size: 1.15em; opacity: .88; margin-top: 10px; position: relative; z-index: 1; }
   .hero .dates {
@@ -78,6 +69,19 @@
   }
 
   .container { max-width: 900px; margin: -24px auto 60px; padding: 0 20px; position: relative; z-index: 2; }
+
+  .philosophy {
+    background: linear-gradient(135deg, #f0ebe0, #f5f0e8);
+    border-radius: 16px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-size: .95em;
+    color: var(--ink);
+    border: 1px solid #e0d5c5;
+    line-height: 1.7;
+  }
+  .philosophy strong { color: var(--pine); }
 
   .day-card {
     background: var(--card);
@@ -136,6 +140,7 @@
   }
   .timeline-item.highlight::before { box-shadow: 0 0 0 2px var(--accent); }
   .timeline-item.train::before { box-shadow: 0 0 0 2px #3498db; }
+  .timeline-item.village::before { box-shadow: 0 0 0 2px #c4a882; }
   .timeline-item .time {
     font-size: .82em;
     font-weight: 700;
@@ -144,6 +149,7 @@
   }
   .timeline-item.highlight .time { color: #b8733b; }
   .timeline-item.train .time { color: #2471a3; }
+  .timeline-item.village .time { color: #a0784a; }
   .timeline-item .desc { font-size: .95em; line-height: 1.6; }
   .timeline-item .note {
     font-size: .82em; color: var(--muted); margin-top: 5px;
@@ -230,6 +236,23 @@
   .budget-table tr:last-child td { border-bottom: none; font-weight: 700; color: var(--pine); }
   .budget-table .amount { text-align: right; font-variant-numeric: tabular-nums; font-family: "SF Mono", "Menlo", monospace; }
 
+  .compare-box {
+    background: linear-gradient(135deg, #e8f0eb, #d1e7d9);
+    border-radius: 16px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    border: 1px solid #b7d7c5;
+    font-size: .9em;
+  }
+  .compare-box h4 { margin-bottom: 10px; color: var(--pine); }
+  .compare-box .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .compare-box .old { color: var(--muted); }
+  .compare-box .new { color: var(--pine); font-weight: 600; }
+
   .day-0 .day-number { background: linear-gradient(135deg, #5a7a65, #6b8b75); }
   .day-0 { border-left-color: #5a7a65; }
   .day-0 .timeline-item::before { box-shadow: 0 0 0 2px #5a7a65; }
@@ -246,42 +269,49 @@
     .info-grid { grid-template-columns: 1fr 1fr; }
     .route-item { font-size: .82em; }
     .budget-table { font-size: .8em; }
+    .compare-box .compare-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
 <section class="hero">
-  <div class="mountains"></div>
-  <h1>🏔️ 徽州 · 山水古村周末行</h1>
-  <p class="subtitle">黄山 · 呈坎 · 宏村 · 西递 — 两天两夜，一山三村</p>
-  <div class="dates">📅 2026年7月10日（周五晚）— 7月12日（周日）</div>
-  <div class="tag">🚄 高铁往返 · 2晚住宿 · 双索道登山 · 三古村慢游</div>
+  <h1>🏔️ 徽州 · 古村慢游 + 黄山精华</h1>
+  <p class="subtitle">呈坎 · 黄山 · 宏村 · 西递 — 2天2夜，重古村，轻登山</p>
+  <div class="dates">📅 2026年7月31日（周五晚）— 8月2日（周日）</div>
+  <div class="tag">🚄 高铁往返 · 2晚民宿 · 黄山5h速览 · 三古村深度慢游</div>
 </section>
 
 <div class="container">
+
+<!-- Design Philosophy -->
+<div class="philosophy">
+  🎯 <strong>本次调整：</strong>黄山山上从 8h 压缩到 <strong>5h</strong>（仅走核心精华）→ 省出 3h+ 给古村 |
+  宏村住一晚，<strong>傍晚+清晨+上午</strong>三个时段沉浸体验 |
+  西递、呈坎节奏放缓，不再赶路
+</div>
 
 <!-- Key Info -->
 <div class="info-grid">
   <div class="info-card">
     <div class="icon">🚄</div>
     <h4>去程</h4>
-    <p>7月10日 周五<br>G2186 长沙南→黄山北<br>16:59—20:32（3h33m）<br>二等座 ¥375</p>
+    <p>7月31日 周五<br>G2186 长沙南→黄山北<br>16:59—20:32（3h33m）<br>二等座 ¥375</p>
   </div>
   <div class="info-card">
     <div class="icon">🏨</div>
     <h4>住宿（2晚）</h4>
-    <p>周五：呈坎/北站附近<br>周六：宏村景区民宿<br>徽派老宅，推窗即景</p>
+    <p>周五：呈坎徽派民宿<br>周六：宏村景区民宿<br>推窗即景，沉浸徽州</p>
   </div>
   <div class="info-card">
     <div class="icon">🚄</div>
     <h4>返程</h4>
-    <p>7月12日 周日<br>G2175 黄山北→长沙南<br>17:29—20:50（3h21m）<br>二等座 ¥367</p>
+    <p>8月2日 周日<br>G2175 黄山北→长沙南<br>17:29—20:50（3h21m）<br>二等座 ¥367</p>
   </div>
   <div class="info-card">
-    <div class="icon">🗺️</div>
-    <h4>四大目的地</h4>
-    <p>🏔️ 黄山 → 🏘️ 宏村<br>🏛️ 西递 → ☯️ 呈坎<br>自北向南，一路顺行不绕路</p>
+    <div class="icon">⏱️</div>
+    <h4>时间分配</h4>
+    <p>🏔️ 黄山 ~5h（精华速览）<br>🏘️ 宏村 傍晚+清晨+上午<br>🏛️ 西递 ~2.5h · ☯️ 呈坎 ~1.5h</p>
   </div>
 </div>
 
@@ -290,197 +320,192 @@
   <div class="day-header">
     <div class="day-number">0</div>
     <div class="day-info">
-      <h3>🚄 周五晚 · 高铁抵达</h3>
-      <span class="date-label">7月10日 周五 傍晚—深夜</span>
+      <h3>🚄 周五晚 · 高铁抵达，夜宿呈坎</h3>
+      <span class="date-label">7月31日 周五 傍晚—深夜</span>
     </div>
   </div>
   <div class="timeline">
     <div class="timeline-item train">
       <div class="time">🏢 16:00 — 出发去长沙南站</div>
-      <div class="desc">建议提前1小时到站，地铁2号线/4号线直达长沙南站</div>
-      <div class="note">💡 周五下午适当早退，避开晚高峰。长沙南站人多，预留安检时间</div>
+      <div class="desc">地铁2号线/4号线直达，建议提前1小时进站</div>
+      <div class="note">💡 周五下午适当早退，长沙南站暑期人多，预留安检排队时间</div>
     </div>
     <div class="timeline-item train">
       <div class="time">🚄 16:59 — 20:32 G2186 次高铁</div>
       <div class="desc">
-        长沙南 → 黄山北，全程 <strong>3小时33分</strong>，二等座 ¥375<br>
-        途经：南昌西 → 上饶 → 黄山北
+        长沙南 → 黄山北，<strong>3小时33分</strong>，二等座 ¥375<br>
+        途经：南昌西 → 上饶 → 黄山北。车上解决晚餐或吃零食
       </div>
-      <div class="note">🎫 提前在12306购票，周五票紧俏。备选：G1398（15:57-19:51）或 G1768（14:08-18:27）</div>
+      <div class="note">🎫 提前15天（7月16日起）12306抢票。备选：G1398（15:57-19:51）更早到；G1768（14:08-18:27）需请假半天</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚕 20:45 — 前往住处</div>
-      <div class="desc">黄山北站出站，打车前往呈坎附近民宿（约15公里，20分钟，¥40-60）</div>
-      <div class="note">💡 住在呈坎的好处：明天清晨可以直接逛古村，避开游客；比住黄山北站附近更有徽州韵味</div>
+      <div class="time">🚕 20:45 — 前往呈坎民宿</div>
+      <div class="desc">黄山北站出站，打车前往呈坎（约15公里，20分钟，¥40-60）</div>
+      <div class="note">💡 提前联系民宿安排接站，比现场打车更靠谱。呈坎夜间安静，正好感受古村夜晚</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🏡 21:15 — 入住民宿</div>
-      <div class="desc">呈坎周边徽派民宿，感受古村夜晚的宁静。收拾行李，早点休息</div>
-      <div class="note">⚠️ 提前联系民宿确认深夜入住，部分民宿22:00后可能关门</div>
+      <div class="time">🏡 21:15 — 入住，夜游呈坎小巷</div>
+      <div class="desc">放下行李，在呈坎的石板巷里走一走——夜晚灯笼微光，空无一人的八卦迷宫，比白天更有味道</div>
+      <div class="note">⚠️ 提前告知民宿深夜入住。呈坎晚上几乎没有游客，注意带手电/手机照明</div>
     </div>
   </div>
 </div>
 
-<!-- Day 1: Saturday - Huangshan -->
+<!-- Day 1: Saturday - Huangshan speedrun + Hongcun afternoon -->
 <div class="day-card day-1">
   <div class="day-header">
     <div class="day-number">1</div>
     <div class="day-info">
-      <h3>🏔️ 周六 · 黄山一日 — 云谷上，玉屏下</h3>
-      <span class="date-label">7月11日 周六 全天 · 体力挑战日</span>
+      <h3>🏔️→🏘️ 周六 · 黄山精华速览 → 宏村慢享</h3>
+      <span class="date-label">8月1日 周六 · 上午登山，下午进村</span>
     </div>
   </div>
   <div class="timeline">
     <div class="timeline-item highlight">
       <div class="time">🌅 05:30 — 早起出发</div>
-      <div class="desc">简单早餐（让民宿提前准备或自带干粮），退房寄存行李或直接带上</div>
-      <div class="note">⚠️ 今天最关键！早起才能在旅行团前面上山，7月黄山索道排队严重</div>
+      <div class="desc">民宿简单早餐（提前让老板准备），退房寄存行李，轻装上阵</div>
+      <div class="note">⚠️ 今天的关键：早起上黄山！暑期索道排队严重，7点前必须到云谷寺站</div>
     </div>
     <div class="timeline-item">
       <div class="time">🚗 06:00 — 驱车前往黄山南大门</div>
-      <div class="desc">呈坎 → 汤口镇黄山南大门换乘中心（约50公里，1小时车程）</div>
-      <div class="note">💡 包车/拼车约 ¥120-150，或前一晚约好滴滴。公交需转车不推荐</div>
+      <div class="desc">呈坎 → 汤口镇南大门换乘中心（约50公里，1小时）</div>
+      <div class="note">💡 包车 ¥120-150，提前一晚约好。滴滴也可但山区早间车辆少</div>
     </div>
     <div class="timeline-item highlight">
-      <div class="time">🚌 07:00 — 景区大巴上山</div>
-      <div class="desc">南大门换乘中心 → 云谷寺站（景区大巴，20分钟，¥19）</div>
-      <div class="note">🎫 黄山门票 ¥190 + 云谷索道上 ¥80 + 玉屏索道下 ¥90 = 共约 ¥379</div>
+      <div class="time">🚌🚡 07:00 — 云谷索道上山</div>
+      <div class="desc">景区大巴（20分钟，¥19）→ 云谷索道（10分钟，¥80）→ 白鹅岭</div>
+      <div class="note">🎫 黄山门票 ¥190，提前在「黄山旅游官方平台」小程序买好，刷身份证进</div>
     </div>
     <div class="timeline-item highlight">
-      <div class="time">🚡 07:30 — 云谷索道上行</div>
-      <div class="desc">缆车10分钟直达白鹅岭，进入后山精华区</div>
-    </div>
-    <div class="timeline-item highlight">
-      <div class="time">🥾 07:45 — 12:00 后山 → 光明顶</div>
+      <div class="time">🥾 07:30 — 12:30 黄山核心精华（5h）</div>
       <div class="desc">
-        <strong>后山经典路线（边走边拍，约4小时）：</strong><br>
-        始信峰（黄山十大名松）→ 黑虎松 → 梦笔生花 → 猴子观海<br>
-        → 排云亭（西海峡谷远眺）→ 飞来石 → 光明顶（1860m，360°全景）
+        <strong>精简路线 — 只走最精华的，果断跳过次要景点：</strong><br>
+        始信峰（15min，打卡竖琴松）→ 光明顶（1860m，360°全景，核心停留点）<br>
+        → 鳌鱼峰 → 百步云梯 → <strong>迎客松</strong>（黄山地标，必到）→ 玉屏楼
       </div>
-      <div class="note">📸 始信峰和光明顶是出片圣地，多留时间。如体力/时间允许，可绕行西海大峡谷一环（+1.5h）</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🍱 12:00 — 山顶午餐</div>
-      <div class="desc">光明顶山庄或白云宾馆附近，简餐 ¥50-80/人。也可自带自热米饭+零食</div>
-      <div class="note">💡 山上物价高（一瓶水 ¥15），建议自带1.5L水和干粮</div>
-    </div>
-    <div class="timeline-item highlight">
-      <div class="time">🥾 13:00 — 15:30 前山下行</div>
-      <div class="desc">
-        <strong>前山精华（下坡为主，较省力）：</strong><br>
-        鳌鱼峰 → 百步云梯 → 莲花峰远眺 → <strong>迎客松</strong>（黄山地标，必打卡）<br>
-        → 玉屏楼
+      <div class="note">
+        ✂️ <strong>跳过：</strong>西海大峡谷（省1.5h）、猴子观海（省30min）、排云亭（省20min）、飞来石（远观即可）<br>
+        🎯 <strong>核心就两个：光明顶 + 迎客松</strong>，其他都是路上顺带看，不绕路
       </div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚡 15:30 — 玉屏索道下行</div>
-      <div class="desc">玉屏索道下山至慈光阁（¥90，约10分钟）</div>
-      <div class="note">⚠️ 末班索道约17:00，必须在16:30前到达玉屏站！</div>
+      <div class="time">🚡 12:30 — 玉屏索道下山</div>
+      <div class="desc">玉屏索道（10分钟，¥90）→ 慈光阁 → 景区大巴（¥19）→ 汤口</div>
+      <div class="note">💡 这个时间下山人少，不用排队。比下午3-4点下山从容得多</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚌 16:00 — 返回南大门</div>
-      <div class="desc">慈光阁 → 景区大巴 → 汤口南大门（¥19）</div>
+      <div class="time">🍜 13:15 — 汤口午餐</div>
+      <div class="desc">汤口镇上徽菜馆，好好吃一顿。推荐：臭鳜鱼、笋干烧肉、毛豆腐</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚗 16:30 — 前往宏村</div>
-      <div class="desc">汤口 → 宏村（约40分钟，¥60-80拼车/打车），傍晚抵达</div>
-      <div class="note">💡 今晚住宏村景区内或周边，明早可以直接逛！</div>
+      <div class="time">🚗 14:15 — 前往宏村</div>
+      <div class="desc">汤口 → 宏村（约40分钟，¥60-80），沿途田园风光</div>
     </div>
-    <div class="timeline-item">
-      <div class="time">🏡 17:30 — 入住宏村民宿</div>
-      <div class="desc">徽派老宅民宿，放下行李，洗个热水澡放松双腿</div>
+    <div class="timeline-item village">
+      <div class="time">🏡 15:00 — 入住宏村民宿</div>
+      <div class="desc">宏村景区内徽派民宿办理入住。放下行李，洗去一身汗</div>
+      <div class="note">🎫 宏村门票 ¥104。住景区内民宿可能需要先买票进村，提前确认</div>
+    </div>
+    <div class="timeline-item village">
+      <div class="time">📸 15:30 — 18:00 宏村午后漫游</div>
+      <div class="desc">
+        下午光线柔和，适合慢慢走慢慢拍：<br>
+        南湖画桥 → 南湖书院 → 月沼 → 汪氏宗祠 → 承志堂（徽州故宫）→ 树人堂
+      </div>
+      <div class="note">💡 下午旅行团多在2-4点，4点后渐少。不用赶，走累了就找家茶馆喝黄山毛峰</div>
     </div>
     <div class="timeline-item highlight">
       <div class="time">🍽️ 18:30 — 宏村晚餐</div>
-      <div class="desc">
-        宏村景区内或村口徽菜馆：<br>
-        臭鳜鱼、毛豆腐、徽州一品锅、笋干烧肉，配一杯黄山毛峰 🍵
-      </div>
-      <div class="note">🌙 饭后可在月沼边散步，夜景灯光下的月沼和南湖别有一番意境</div>
+      <div class="desc">月沼边的徽菜馆：徽州一品锅、石耳炖鸡、刀板香。配一壶米酒，看月沼夜色</div>
+    </div>
+    <div class="timeline-item village">
+      <div class="time">🌙 20:00 — 宏村夜景</div>
+      <div class="desc">月沼和南湖亮灯后，倒影如画。游客散尽，整个村子安静下来——这是宏村最动人的时刻</div>
+      <div class="note">📸 月沼夜拍是宏村经典机位，带三脚架或手机稳定器效果更佳</div>
     </div>
   </div>
 </div>
 
-<!-- Day 2: Sunday - Ancient Villages + Return -->
+<!-- Day 2: Sunday - Deep village tour -->
 <div class="day-card day-2">
   <div class="day-header">
     <div class="day-number">2</div>
     <div class="day-info">
-      <h3>🏘️ 周日 · 古村三连 — 宏村→西递→呈坎</h3>
-      <span class="date-label">7月12日 周日 清晨—傍晚 · 返程日</span>
+      <h3>🏘️ 周日 · 古村深度游 — 宏村晨雾 → 西递 → 呈坎</h3>
+      <span class="date-label">8月2日 周日 清晨—傍晚 · 返程日</span>
     </div>
   </div>
   <div class="timeline">
-    <div class="timeline-item highlight">
-      <div class="time">🌅 06:30 — 宏村晨雾</div>
+    <div class="timeline-item village">
+      <div class="time">🌫️ 06:00 — 宏村晨雾（今日高光！）</div>
       <div class="desc">
-        <strong>清晨的宏村是一天中最美的时刻！</strong>趁旅行团未到，独享南湖晨雾和月沼倒影<br>
-        南湖画桥 → 月沼 → 承志堂 → 树人堂 → 汪氏宗祠，慢慢走2小时
+        <strong>清晨的宏村，是这次旅行最值得早起的时刻。</strong><br>
+        南湖晨雾缭绕，月沼水面如镜，整个村子还在沉睡——没有游客，只有浣洗的村民和写生的美院学生<br>
+        你住在村里，推开门就是这幅画，不需要赶路。
       </div>
-      <div class="note">📸 南湖画桥日出（6:00前到位）、月沼对称倒影（7:00前无人）— 出片黄金时间<br>🎫 宏村门票 ¥104，入住景区内民宿可能免票或优惠</div>
+      <div class="note">📸 6:00南湖画桥日出 → 6:30月沼无风倒影 → 7:00巷道光影。这是宏村最好看的90分钟，住在景区内的意义就在于此</div>
+    </div>
+    <div class="timeline-item village">
+      <div class="time">🥐 08:00 — 宏村街边早餐</div>
+      <div class="desc">村口：徽州石头粿、毛豆腐（《舌尖》同款）、黄山烧饼、现磨豆浆</div>
+    </div>
+    <div class="timeline-item village">
+      <div class="time">🚶 08:30 — 10:00 宏村再逛一圈</div>
+      <div class="desc">昨天下午逛了南湖和月沼，今天走巷子深处：桃园居 → 敬修堂 → 乐叙堂。九点后旅行团涌入，你也逛得差不多了，正好收拾退房</div>
+      <div class="note">💡 宏村总共待了 <strong>傍晚+夜晚+清晨+上午 ≈ 8小时+</strong>，远不止"打卡"</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🥐 08:30 — 宏村早餐</div>
-      <div class="desc">村口早点摊：徽州石头粿、毛豆腐、黄山烧饼、豆浆</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🚗 09:00 — 前往西递</div>
+      <div class="time">🚗 10:00 — 前往西递</div>
       <div class="desc">宏村 → 西递（约30分钟，客车¥6或打车¥40-50）</div>
     </div>
-    <div class="timeline-item highlight">
-      <div class="time">🏛️ 09:30 — 11:30 西递游览</div>
+    <div class="timeline-item village">
+      <div class="time">🏛️ 10:30 — 13:00 西递慢游（2.5h）</div>
       <div class="desc">
-        <strong>西递比宏村更安静，官宅文化深厚：</strong><br>
-        胡文光牌坊（徽州最美牌坊）→ 追慕堂 → 瑞玉庭 → 西园 → 旷古斋<br>
-        村口田园风光，远山为背景，拍照不输宏村
+        <strong>西递比宏村安静得多，官宅文化深厚：</strong><br>
+        胡文光牌坊（徽州最美石牌坊）→ 追慕堂 → 瑞玉庭 → 西园 → 旷古斋<br>
+        走累了在村口田埂上坐一会儿，看远山和稻田——西递的田园感是宏村没有的
       </div>
-      <div class="note">🎫 西递门票 ¥104<br>💡 宏村看"水"，西递看"官"——各有千秋，都值得去</div>
+      <div class="note">🎫 西递门票 ¥104<br>💡 西递游客远少于宏村，上午光线从牌坊方向打过来，拍照正好</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🍜 11:30 — 午餐</div>
-      <div class="desc">西递村口农家菜，或路上简餐。推荐：笋干面、徽州炒饭</div>
+      <div class="time">🍜 13:00 — 西递午餐</div>
+      <div class="desc">村口农家：笋干面、徽州炒饭、红烧石鸡。最后一顿徽菜，吃好再走</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚗 12:15 — 前往呈坎</div>
-      <div class="desc">西递 → 呈坎（约1小时15分钟车程，¥100-130包车）</div>
-      <div class="note">💡 这一段是今天最长的移动，正好在车上休息</div>
+      <div class="time">🚗 14:00 — 前往呈坎</div>
+      <div class="desc">西递 → 呈坎（约1小时15分，¥100-130），车上正好午休</div>
     </div>
-    <div class="timeline-item highlight">
-      <div class="time">☯️ 13:30 — 14:30 呈坎古村</div>
+    <div class="timeline-item village">
+      <div class="time">☯️ 15:15 — 16:30 呈坎古村（1h15m）</div>
       <div class="desc">
-        <strong>八卦布局、原生态徽州生活：</strong><br>
-        永兴湖（荷塘倒影）→ 罗东舒祠（国宝级明代祠堂）→ 钟英街 → 燕翼堂<br>
-        迷宫般的巷道，鲜少游客，感受最本真的徽州
+        <strong>最后一站，最原生态的徽州：</strong><br>
+        永兴湖荷塘（8月荷花正盛！）→ 罗东舒祠（明代国保，彩绘绝美）→ 钟英街<br>
+        呈坎几乎没有旅游商店，老人在巷口摇扇聊天——这是商业化的宏村西递看不到的
       </div>
-      <div class="note">🎫 呈坎门票 ¥107<br>💡 呈坎商业化最低，老人在巷口聊天、晒秋——最真实的徽州日常</div>
+      <div class="note">🎫 呈坎门票 ¥107。如果时间不够，永兴湖+罗东舒祠看完即可，这两处是精华</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚕 14:30 — 前往黄山北站</div>
-      <div class="desc">呈坎 → 黄山北站（约15公里，20分钟，¥40-60）</div>
-    </div>
-    <div class="timeline-item train">
-      <div class="time">☕ 15:00 — 候车休息</div>
-      <div class="desc">黄山北站候车，买杯咖啡或黄山毛峰，整理照片，发朋友圈 😄</div>
-      <div class="note">⏰ 预留充足时间，不用担心赶车。距G2175发车还有2.5小时，可以慢慢来</div>
+      <div class="time">🚕 16:30 — 前往黄山北站</div>
+      <div class="desc">呈坎 → 黄山北站（15公里，20分钟），正好赶上检票</div>
     </div>
     <div class="timeline-item train">
       <div class="time">🚄 17:29 — 20:50 G2175 返程</div>
       <div class="desc">
-        黄山北 → 长沙南，全程 <strong>3小时21分</strong>（最快），二等座 ¥367<br>
-        途经：上饶 → 南昌西 → 长沙南
+        黄山北 → 长沙南，<strong>3小时21分</strong>（最快），二等座 ¥367<br>
+        途经：上饶 → 南昌西 → 长沙南。车上整理照片，发朋友圈 📱
       </div>
-      <div class="note">🎫 备选车次：G635（16:09-20:09）如果你想早点到家；G2759（19:33-23:27）最晚一班</div>
+      <div class="note">🎫 备选：G635（16:09-20:09）如果你呈坎结束得早；G2759（19:33-23:27）最晚但到家太晚</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🏠 21:00 — 抵达长沙</div>
-      <div class="desc">长沙南站，地铁回家。周末徽州之旅圆满结束！🏔️✨</div>
+      <div class="time">🏠 21:00 — 回到长沙</div>
+      <div class="desc">长沙南站，地铁回家。周末徽州慢旅，满载而归 🏔️✨</div>
     </div>
   </div>
 </div>
 
 <!-- Route Map -->
 <div class="route-area">
-  <h3>🗺️ 全程路线图（自北向南，一路顺行）</h3>
+  <h3>🗺️ 全程路线图（自北向南，顺行不绕）</h3>
   <div class="route-list">
     <div class="route-item">
       <span class="route-dot" style="background:#e74c3c"></span>
@@ -498,7 +523,7 @@
       <span class="route-dot" style="background:#5a7a65"></span>
       <strong>呈坎民宿</strong>
       <span class="route-time">🚕 20分钟</span>
-      <span class="route-badge" style="background:#e8f0eb;color:#2d6a4f">宿</span>
+      <span class="route-badge" style="background:#e8f0eb;color:#2d6a4f">宿①</span>
     </div>
     <div class="route-item">
       <span class="route-dot" style="background:#5a7a65"></span>
@@ -511,21 +536,21 @@
     </div>
     <div class="route-item">
       <span class="route-dot" style="background:#2d6a4f"></span>
-      <strong>黄山风景区</strong>
+      <strong>黄山（5h速览）</strong>
       <span class="route-line"></span>
       <span class="route-dot" style="background:#c4a882"></span>
       <strong>宏村</strong>
       <span class="route-time">🚗 40分钟</span>
-      <span class="route-badge" style="background:#fef3c7;color:#92400e">周六晚宿</span>
+      <span class="route-badge" style="background:#fef3c7;color:#92400e">宿②</span>
     </div>
     <div class="route-item">
       <span class="route-dot" style="background:#c4a882"></span>
-      <strong>宏村</strong>
+      <strong>宏村（8h+沉浸）</strong>
       <span class="route-line"></span>
       <span class="route-dot" style="background:#d4a574"></span>
       <strong>西递</strong>
       <span class="route-time">🚗 30分钟</span>
-      <span class="route-badge" style="background:#fef3c7;color:#92400e">周日早</span>
+      <span class="route-badge" style="background:#fef3c7;color:#92400e">周日上午</span>
     </div>
     <div class="route-item">
       <span class="route-dot" style="background:#d4a574"></span>
@@ -543,7 +568,6 @@
       <span class="route-dot" style="background:#3498db"></span>
       <strong>黄山北站</strong>
       <span class="route-time">🚕 20分钟</span>
-      <span class="route-badge" style="background:#dbeafe;color:#1e40af">返程</span>
     </div>
     <div class="route-item">
       <span class="route-dot" style="background:#3498db"></span>
@@ -557,18 +581,33 @@
   </div>
 </div>
 
+<!-- Time allocation comparison -->
+<div class="compare-box">
+  <h4>⏱️ 时间分配对比（调整前 → 调整后）</h4>
+  <div class="compare-grid">
+    <div class="old">🏔️ 黄山：~8h 全遍历</div>
+    <div class="new">🏔️ 黄山：~5h 精华速览 ✂️-3h</div>
+    <div class="old">🏘️ 宏村：仅周日早 2h</div>
+    <div class="new">🏘️ 宏村：周六下午+夜+周日早 ≈8h+ 📈+6h</div>
+    <div class="old">🏛️ 西递：走马观花 1.5h</div>
+    <div class="new">🏛️ 西递：慢走慢拍 2.5h 📈+1h</div>
+    <div class="old">☯️ 呈坎：赶路打卡 1h</div>
+    <div class="new">☯️ 呈坎：从容逛 1.5h 📈+0.5h</div>
+  </div>
+</div>
+
 <!-- Budget -->
 <div class="budget-box">
   <h3>💰 预算参考（单人）</h3>
   <table class="budget-table">
     <tr><th>项目</th><th>明细</th><th class="amount">费用</th></tr>
     <tr><td>🚄 往返高铁</td><td>长沙南 ↔ 黄山北（二等座）</td><td class="amount">¥742</td></tr>
-    <tr><td>🏨 住宿2晚</td><td>呈坎民宿 ¥200-400 + 宏村民宿 ¥300-600</td><td class="amount">¥500-1,000</td></tr>
+    <tr><td>🏨 住宿2晚</td><td>呈坎民宿 ¥200-400 + 宏村景区民宿 ¥400-800</td><td class="amount">¥600-1,200</td></tr>
     <tr><td>🎫 黄山景区</td><td>门票 ¥190 + 云谷索道 ¥80 + 玉屏索道 ¥90 + 大巴 ¥38</td><td class="amount">¥398</td></tr>
     <tr><td>🎫 古村门票</td><td>宏村 ¥104 + 西递 ¥104 + 呈坎 ¥107</td><td class="amount">¥315</td></tr>
-    <tr><td>🚕 当地交通</td><td>打车/拼车/包车（约4-5段行程）</td><td class="amount">¥300-450</td></tr>
-    <tr><td>🍽️ 餐饮</td><td>2早餐 + 2午餐 + 2晚餐 + 零食饮水</td><td class="amount">¥300-500</td></tr>
-    <tr><td><strong>合计</strong></td><td></td><td class="amount"><strong>¥2,555-3,405</strong></td></tr>
+    <tr><td>🚕 当地交通</td><td>打车/拼车/包车（约5段行程）</td><td class="amount">¥350-500</td></tr>
+    <tr><td>🍽️ 餐饮</td><td>2早餐 + 3午餐 + 2晚餐 + 零食饮水</td><td class="amount">¥350-550</td></tr>
+    <tr><td><strong>合计</strong></td><td></td><td class="amount"><strong>¥2,755-3,705</strong></td></tr>
   </table>
 </div>
 
@@ -576,18 +615,20 @@
 <div class="tips">
   <h3>📋 出行小贴士</h3>
   <ul>
-    <li><strong>购票提醒：</strong>周五下午的G2186和周日傍晚的G2175都是热门车次，建议提前15天（6月25日起）在12306蹲点抢票；备选车次也一并关注</li>
-    <li><strong>住宿预订：</strong>7月黄山暑期旺季，呈坎和宏村的优质民宿提前2周以上预订；宏村景区内民宿推窗即景但价格偏高（¥400-800），景区外步行5分钟的性价比更高（¥200-400）</li>
-    <li><strong>黄山登山装备：</strong>防滑登山鞋必备！登山杖山脚¥5/根；山上温差6-8°C，带薄冲锋衣或防晒衣；1.5L水+高热量零食（巧克力、牛肉干）；充电宝+离线地图</li>
-    <li class="warn"><strong>黄山索道末班：</strong>玉屏索道末班约17:00，必须在16:30前抵达玉屏站！错过只能步行2.5小时下山</li>
-    <li><strong>7月天气：</strong>黄山山上18-28°C，山脚28-35°C。防晒霜SPF50+、遮阳帽必备；山上天气多变，带一次性雨衣（不要带伞，雷击风险）</li>
-    <li><strong>古村最佳时间：</strong>宏村清晨6:30-8:00是黄金时段，月沼和南湖几乎没有游客；西递上午光线最好；呈坎下午永兴湖荷花光影美</li>
-    <li><strong>周三免票：</strong>黄山、宏村、西递每周三有免票活动（需抢预约），如果时间灵活可调整到周三去某个景点省门票</li>
-    <li><strong>宏村住宿：</strong>强烈推荐住景区内徽派民宿，清晨推窗就是月沼晨雾，旅行团9点才来，独享2小时</li>
-    <li><strong>黄山一日游强度：</strong>双索道闭环约7-8小时、步行约4小时、2万步左右。体力一般者可跳过西海大峡谷一环，节省1.5小时</li>
-    <li><strong>交通避坑：</strong>黄山北站出站后有很多黑车拉客，价格虚高。建议滴滴/高德叫车，或提前联系民宿安排接站</li>
-    <li><strong>当地美食：</strong>臭鳜鱼（徽菜头牌）、毛豆腐（《舌尖》同款）、徽州一品锅、笋干烧肉、黄山烧饼、石头粿。伴手礼：黄山毛峰、祁门红茶、徽墨酥</li>
-    <li class="warn"><strong>体力警告：</strong>周六黄山2万步+周日三村暴走，对体力要求较高。如果周日觉得累，可以跳过西递直接去呈坎，或在宏村多待一会儿</li>
+    <li><strong>抢票时间：</strong>7月31日去程票 7月16日开售，8月2日返程票 7月19日开售。暑期黄山线路火爆，设闹钟在12306准点抢！G2186和G2175是黄金时间，秒空很正常</li>
+    <li><strong>住宿必须早订：</strong>8月初黄山暑期最高峰，呈坎和宏村的优质民宿至少提前3周预订。宏村景区内民宿（月沼周边）最抢手，¥400-800/晚；景区外步行5分钟的性价比更高（¥200-400）</li>
+    <li><strong>黄山5h速览要点：</strong>核心只有光明顶+迎客松，其他景点顺路看、不绕路。果断跳过西海大峡谷（会多耗1.5h），山上不要纠结"来都来了"——省下的时间在宏村发呆更值得</li>
+    <li><strong>登山装备：</strong>防滑鞋必备！登山杖山脚¥5/根；山上比山下低6-8°C，带防晒衣/薄外套即可（8月不需要冲锋衣）；1.5L水+巧克力/牛肉干；一次性雨衣（山上禁伞，雷击风险）</li>
+    <li class="warn"><strong>索道末班：</strong>玉屏索道约17:00关闭。你的计划是12:30下山，时间充裕，不用赶。但万一贪玩误了时间，步行下山要2.5小时</li>
+    <li><strong>8月天气：</strong>黄山山上18-26°C，山脚28-36°C。防晒SPF50+、遮阳帽必备；午后山上有阵雨概率高，一次性雨衣随身带</li>
+    <li><strong>宏村黄金时间表：</strong>清晨6:00-7:30（晨雾+无人月沼）> 傍晚17:00-18:30（夕阳光线）> 夜晚19:30-21:00（灯光倒影）。你住在景区内，三个时段全都能享受到！</li>
+    <li><strong>宏村住宿建议：</strong>住在月沼或南湖步行2分钟范围内的民宿，"推窗即画"不是夸张。订房时确认是否有空调（老宅有些没有）、是否有独立卫浴</li>
+    <li><strong>门票省钱：</strong>周三黄山+宏村+西递有免票活动但需抢预约，周五到周日不适用。如果能在黄山官网/小程序买到联票会有少量折扣</li>
+    <li><strong>呈坎8月看点：</strong>永兴湖荷花8月初正是盛花期！罗东舒祠的明代彩绘是国内孤品，别错过</li>
+    <li><strong>交通避坑：</strong>黄山北站黑车多，一律滴滴/高德叫车。呈坎→汤口、西递→呈坎两段路途较长，建议提前一晚在滴滴预约或联系民宿老板介绍靠谱司机</li>
+    <li><strong>徽菜必吃清单：</strong>臭鳜鱼（闻着臭吃着香）、毛豆腐（《舌尖上的中国》）、徽州一品锅、刀板香（咸肉）、笋干烧肉、石头粿。伴手礼：黄山毛峰、祁门红茶、徽墨酥、黄山烧饼</li>
+    <li class="warn"><strong>体力提示：</strong>黄山5h约1.5万步（比原计划8h的2万步轻松不少），但仍有上下台阶。周六登山+周日三村步行，对体力有要求。如果周日累了，可以跳过西递直奔呈坎（宏村已经体验了徽州古村的精华）</li>
+    <li><strong>如果黄山下雨：</strong>小雨不影响登山（云海反而更美），中大雨索道可能停运。出发前查黄山风景区天气预报，如果周六预报大雨，可考虑和周日行程对调（周六先古村、周日上山），但返程高铁时间需要相应调整</li>
   </ul>
 </div>
 
