@@ -3,94 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌴 三亚旅行计划 · 6月18-21日</title>
+<title>🏔️ 徽州周末旅行计划 · 黄山+古村</title>
 <style>
   :root {
-    --ocean: #0ea5e9;
-    --ocean-dark: #0369a1;
-    --sand: #fef3c7;
-    --coral: #f43f5e;
-    --palm: #10b981;
-    --bg: #f0f9ff;
+    --pine: #2d6a4f;
+    --pine-light: #40916c;
+    --mist: #6c7a89;
+    --ink: #2c3e50;
+    --wall: #f5f0e8;
+    --tile: #4a4a4a;
+    --earth: #c4a882;
+    --accent: #d4a574;
+    --bg: #f7f4ef;
     --card: #ffffff;
-    --text: #1e293b;
-    --muted: #64748b;
+    --text: #2c3e50;
+    --muted: #7f8c8d;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
-    background: linear-gradient(180deg, #e0f2fe 0%, #f0fdf4 40%, #fefce8 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, #e8f0eb 0%, #f7f4ef 30%, #faf8f4 60%, #f0ebe0 100%);
     min-height: 100vh;
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
   }
 
   .hero {
-    background: linear-gradient(135deg, #1e3a5f 0%, #0ea5e9 30%, #06b6d4 60%, #10b981 100%);
+    background: linear-gradient(160deg, #1a3a2a 0%, #2d5a3f 25%, #3d6b4f 45%, #5a7a65 65%, #8a9a85 100%);
     color: white;
-    padding: 60px 20px 50px;
+    padding: 64px 20px 56px;
     text-align: center;
     position: relative;
     overflow: hidden;
   }
-  .hero::before {
+  .hero::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    height: 60px;
+    height: 50px;
     background: linear-gradient(transparent, var(--bg));
   }
-  .hero h1 { font-size: 2.6em; font-weight: 800; letter-spacing: -0.5px; }
-  .hero .subtitle { font-size: 1.2em; opacity: .9; margin-top: 8px; }
+  .hero .mountains {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    opacity: 0.08;
+    background:
+      linear-gradient(135deg, transparent 33%, white 33%, white 34%, transparent 34%) 0 60px / 60px 60px,
+      linear-gradient(225deg, transparent 33%, white 33%, white 34%, transparent 34%) 30px 30px / 60px 60px;
+  }
+  .hero h1 { font-size: 2.6em; font-weight: 800; letter-spacing: 2px; position: relative; z-index: 1; }
+  .hero .subtitle { font-size: 1.15em; opacity: .88; margin-top: 10px; position: relative; z-index: 1; }
   .hero .dates {
     display: inline-block;
-    margin-top: 16px;
-    background: rgba(255,255,255,.2);
+    margin-top: 18px;
+    background: rgba(255,255,255,.15);
     backdrop-filter: blur(10px);
-    padding: 8px 24px;
+    padding: 8px 28px;
     border-radius: 50px;
     font-size: 1.05em;
+    position: relative; z-index: 1;
   }
   .hero .tag {
     display: inline-block;
-    margin-top: 8px;
-    background: rgba(255,255,255,.12);
-    padding: 4px 16px;
+    margin-top: 10px;
+    background: rgba(255,255,255,.1);
+    padding: 5px 18px;
     border-radius: 50px;
     font-size: .85em;
+    position: relative; z-index: 1;
   }
 
-  .container { max-width: 900px; margin: -20px auto 60px; padding: 0 20px; position: relative; z-index: 2; }
+  .container { max-width: 900px; margin: -24px auto 60px; padding: 0 20px; position: relative; z-index: 2; }
 
   .day-card {
     background: var(--card);
     border-radius: 20px;
     padding: 32px;
     margin-bottom: 24px;
-    box-shadow: 0 4px 24px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
-    border-left: 6px solid var(--ocean);
+    box-shadow: 0 4px 24px rgba(0,0,0,.05), 0 1px 3px rgba(0,0,0,.03);
+    border-left: 6px solid var(--pine);
     transition: transform .2s, box-shadow .2s;
   }
-  .day-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.1); }
+  .day-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.08); }
 
   .day-header {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
   }
   .day-number {
-    width: 52px; height: 52px;
+    width: 54px; height: 54px;
     border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.4em; font-weight: 800;
     color: white;
     flex-shrink: 0;
   }
-  .day-info h3 { font-size: 1.3em; font-weight: 700; }
-  .day-info .date-label { font-size: .9em; color: var(--muted); }
+  .day-info h3 { font-size: 1.25em; font-weight: 700; }
+  .day-info .date-label { font-size: .88em; color: var(--muted); }
 
   .timeline { position: relative; padding-left: 28px; }
   .timeline::before {
@@ -98,16 +113,16 @@
     position: absolute;
     left: 8px; top: 8px; bottom: 8px;
     width: 2px;
-    background: #e2e8f0;
+    background: #e8e3da;
     border-radius: 1px;
   }
   .timeline-item {
     position: relative;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
     padding: 14px 18px;
-    background: #f8fafc;
+    background: #fafaf7;
     border-radius: 12px;
-    border: 1px solid #f1f5f9;
+    border: 1px solid #f0ebe0;
   }
   .timeline-item:last-child { margin-bottom: 0; }
   .timeline-item::before {
@@ -117,107 +132,131 @@
     width: 10px; height: 10px;
     border-radius: 50%;
     border: 2.5px solid white;
-    box-shadow: 0 0 0 2px var(--ocean);
+    box-shadow: 0 0 0 2px var(--pine);
   }
-  .timeline-item.highlight::before { box-shadow: 0 0 0 2px var(--coral); }
-  .timeline-item.shop::before { box-shadow: 0 0 0 2px #f59e0b; }
+  .timeline-item.highlight::before { box-shadow: 0 0 0 2px var(--accent); }
+  .timeline-item.train::before { box-shadow: 0 0 0 2px #3498db; }
   .timeline-item .time {
     font-size: .82em;
     font-weight: 700;
-    color: var(--ocean-dark);
-    margin-bottom: 2px;
+    color: var(--pine);
+    margin-bottom: 3px;
   }
-  .timeline-item.highlight .time { color: var(--coral); }
-  .timeline-item.shop .time { color: #d97706; }
-  .timeline-item .desc { font-size: .95em; }
+  .timeline-item.highlight .time { color: #b8733b; }
+  .timeline-item.train .time { color: #2471a3; }
+  .timeline-item .desc { font-size: .95em; line-height: 1.6; }
   .timeline-item .note {
-    font-size: .82em; color: var(--muted); margin-top: 4px;
-    display: flex; align-items: center; gap: 4px;
+    font-size: .82em; color: var(--muted); margin-top: 5px;
+    display: flex; align-items: flex-start; gap: 4px;
   }
 
   .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin-bottom: 24px;
   }
   .info-card {
     background: var(--card);
     border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 2px 16px rgba(0,0,0,.05);
+    padding: 22px 18px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.04);
     text-align: center;
   }
   .info-card .icon { font-size: 2.2em; margin-bottom: 8px; }
-  .info-card h4 { font-size: 1em; font-weight: 700; margin-bottom: 4px; }
-  .info-card p { font-size: .88em; color: var(--muted); line-height: 1.5; }
+  .info-card h4 { font-size: .95em; font-weight: 700; margin-bottom: 4px; color: var(--ink); }
+  .info-card p { font-size: .85em; color: var(--muted); line-height: 1.6; }
 
   .tips {
-    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    background: linear-gradient(135deg, #faf8f4, #f0ebe0);
     border-radius: 20px;
     padding: 28px 32px;
     margin-bottom: 24px;
-    border: 1px solid #fde68a;
+    border: 1px solid #e0d5c5;
   }
-  .tips h3 { font-size: 1.15em; margin-bottom: 12px; }
+  .tips h3 { font-size: 1.15em; margin-bottom: 14px; color: var(--ink); }
   .tips ul { list-style: none; }
-  .tips li { padding: 6px 0; font-size: .93em; }
+  .tips li { padding: 7px 0; font-size: .93em; line-height: 1.6; }
   .tips li::before { content: '💡 '; }
+  .tips li.warn::before { content: '⚠️ '; }
 
-  .map-area {
+  .route-area {
     background: var(--card);
     border-radius: 20px;
-    padding: 24px;
+    padding: 26px 28px;
     margin-bottom: 24px;
-    box-shadow: 0 2px 16px rgba(0,0,0,.05);
+    box-shadow: 0 2px 16px rgba(0,0,0,.04);
   }
-  .map-area h3 { margin-bottom: 16px; font-size: 1.1em; }
+  .route-area h3 { margin-bottom: 18px; font-size: 1.1em; color: var(--ink); }
   .route-list { display: flex; flex-direction: column; gap: 10px; }
   .route-item {
     display: flex; align-items: center; gap: 10px;
     padding: 10px 16px;
-    background: #f8fafc;
+    background: #fafaf7;
     border-radius: 10px;
-    font-size: .9em;
+    font-size: .88em;
+    flex-wrap: wrap;
   }
   .route-dot {
     width: 10px; height: 10px;
     border-radius: 50%; flex-shrink: 0;
   }
   .route-line {
-    flex: 1; height: 1px;
-    border-top: 2px dashed #cbd5e1;
+    flex: 1; min-width: 20px; height: 1px;
+    border-top: 2px dashed #d5cfc5;
   }
   .route-badge {
-    font-size: .78em; padding: 2px 8px;
+    font-size: .78em; padding: 3px 10px;
     border-radius: 10px; white-space: nowrap;
     font-weight: 600;
   }
   .route-time { color: var(--muted); font-size: .82em; white-space: nowrap; }
 
-  .day-0 .day-number { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
-  .day-0 { border-left-color: #6366f1; }
-  .day-1 .day-number { background: linear-gradient(135deg, #0ea5e9, #06b6d4); }
-  .day-1 { border-left-color: #0ea5e9; }
-  .day-2 .day-number { background: linear-gradient(135deg, #10b981, #34d399); }
-  .day-2 { border-left-color: #10b981; }
-  .day-3 .day-number { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-  .day-3 { border-left-color: #f59e0b; }
+  .budget-box {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.04);
+  }
+  .budget-box h3 { margin-bottom: 16px; font-size: 1.1em; color: var(--ink); }
+  .budget-table { width: 100%; border-collapse: collapse; font-size: .9em; }
+  .budget-table th, .budget-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #f0ebe0;
+  }
+  .budget-table th { color: var(--muted); font-weight: 600; font-size: .82em; text-transform: uppercase; }
+  .budget-table tr:last-child td { border-bottom: none; font-weight: 700; color: var(--pine); }
+  .budget-table .amount { text-align: right; font-variant-numeric: tabular-nums; font-family: "SF Mono", "Menlo", monospace; }
+
+  .day-0 .day-number { background: linear-gradient(135deg, #5a7a65, #6b8b75); }
+  .day-0 { border-left-color: #5a7a65; }
+  .day-0 .timeline-item::before { box-shadow: 0 0 0 2px #5a7a65; }
+  .day-1 .day-number { background: linear-gradient(135deg, #2d6a4f, #40916c); }
+  .day-1 { border-left-color: #2d6a4f; }
+  .day-2 .day-number { background: linear-gradient(135deg, #c4a882, #d4b896); }
+  .day-2 { border-left-color: #c4a882; }
+  .day-2 .timeline-item::before { box-shadow: 0 0 0 2px #c4a882; }
+  .day-2 .timeline-item .time { color: #a0784a; }
 
   @media (max-width: 640px) {
-    .hero h1 { font-size: 1.8em; }
+    .hero h1 { font-size: 1.7em; letter-spacing: 1px; }
     .day-card { padding: 20px; }
     .info-grid { grid-template-columns: 1fr 1fr; }
+    .route-item { font-size: .82em; }
+    .budget-table { font-size: .8em; }
   }
 </style>
 </head>
 <body>
 
 <section class="hero">
-  <h1>🌴 三亚旅行计划</h1>
-  <p class="subtitle">蜈支洲岛 · 免税购物 · 亚龙湾</p>
-  <div class="dates">📅 2026年6月18日 — 6月21日</div>
-  <div class="tag">🏨 3晚 · 2个整天 · 悠闲不赶</div>
+  <div class="mountains"></div>
+  <h1>🏔️ 徽州 · 山水古村周末行</h1>
+  <p class="subtitle">黄山 · 呈坎 · 宏村 · 西递 — 两天两夜，一山三村</p>
+  <div class="dates">📅 2026年7月10日（周五晚）— 7月12日（周日）</div>
+  <div class="tag">🚄 高铁往返 · 2晚住宿 · 双索道登山 · 三古村慢游</div>
 </section>
 
 <div class="container">
@@ -225,286 +264,330 @@
 <!-- Key Info -->
 <div class="info-grid">
   <div class="info-card">
-    <div class="icon">🛬</div>
-    <h4>抵达</h4>
-    <p>6月18日 深夜 23:35<br>三亚凤凰国际机场</p>
+    <div class="icon">🚄</div>
+    <h4>去程</h4>
+    <p>7月10日 周五<br>G2186 长沙南→黄山北<br>16:59—20:32（3h33m）<br>二等座 ¥375</p>
   </div>
   <div class="info-card">
     <div class="icon">🏨</div>
-    <h4>住宿（3晚）</h4>
-    <p>天丽湾凯悦酒店<br>三亚湾 · 近机场</p>
+    <h4>住宿（2晚）</h4>
+    <p>周五：呈坎/北站附近<br>周六：宏村景区民宿<br>徽派老宅，推窗即景</p>
   </div>
   <div class="info-card">
-    <div class="icon">🛫</div>
-    <h4>离开</h4>
-    <p>6月21日 下午<br>三亚凤凰国际机场</p>
+    <div class="icon">🚄</div>
+    <h4>返程</h4>
+    <p>7月12日 周日<br>G2175 黄山北→长沙南<br>17:29—20:50（3h21m）<br>二等座 ¥367</p>
   </div>
   <div class="info-card">
-    <div class="icon">🎯</div>
-    <h4>三大行程</h4>
-    <p>蜈支洲岛 → 免税城+亚龙湾<br>每天一个方向，不折腾</p>
+    <div class="icon">🗺️</div>
+    <h4>四大目的地</h4>
+    <p>🏔️ 黄山 → 🏘️ 宏村<br>🏛️ 西递 → ☯️ 呈坎<br>自北向南，一路顺行不绕路</p>
   </div>
 </div>
 
-<!-- Day 0: Late Night Arrival -->
+<!-- Day 0: Friday -->
 <div class="day-card day-0">
   <div class="day-header">
     <div class="day-number">0</div>
     <div class="day-info">
-      <h3>🌙 深夜抵达</h3>
-      <span class="date-label">6月18日 周三 深夜</span>
+      <h3>🚄 周五晚 · 高铁抵达</h3>
+      <span class="date-label">7月10日 周五 傍晚—深夜</span>
     </div>
   </div>
   <div class="timeline">
-    <div class="timeline-item">
-      <div class="time">🛬 23:35 — 落地三亚</div>
-      <div class="desc">凤凰机场落地，取行李</div>
+    <div class="timeline-item train">
+      <div class="time">🏢 16:00 — 出发去长沙南站</div>
+      <div class="desc">建议提前1小时到站，地铁2号线/4号线直达长沙南站</div>
+      <div class="note">💡 周五下午适当早退，避开晚高峰。长沙南站人多，预留安检时间</div>
+    </div>
+    <div class="timeline-item train">
+      <div class="time">🚄 16:59 — 20:32 G2186 次高铁</div>
+      <div class="desc">
+        长沙南 → 黄山北，全程 <strong>3小时33分</strong>，二等座 ¥375<br>
+        途经：南昌西 → 上饶 → 黄山北
+      </div>
+      <div class="note">🎫 提前在12306购票，周五票紧俏。备选：G1398（15:57-19:51）或 G1768（14:08-18:27）</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚗 23:50 — 前往酒店</div>
-      <div class="desc">打车到天丽湾凯悦，仅3公里、10分钟、约¥20</div>
-      <div class="note">💡 酒店近机场是三亚湾一大优势，深夜不折腾</div>
+      <div class="time">🚕 20:45 — 前往住处</div>
+      <div class="desc">黄山北站出站，打车前往呈坎附近民宿（约15公里，20分钟，¥40-60）</div>
+      <div class="note">💡 住在呈坎的好处：明天清晨可以直接逛古村，避开游客；比住黄山北站附近更有徽州韵味</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🏨 00:10 — 入住休息</div>
-      <div class="desc">办理入住，好好睡觉恢复精力</div>
-      <div class="note">⚠️ 提前告知酒店深夜入住，确保保留房间</div>
+      <div class="time">🏡 21:15 — 入住民宿</div>
+      <div class="desc">呈坎周边徽派民宿，感受古村夜晚的宁静。收拾行李，早点休息</div>
+      <div class="note">⚠️ 提前联系民宿确认深夜入住，部分民宿22:00后可能关门</div>
     </div>
   </div>
 </div>
 
-<!-- Day 1: Wuzhizhou Island -->
+<!-- Day 1: Saturday - Huangshan -->
 <div class="day-card day-1">
   <div class="day-header">
     <div class="day-number">1</div>
     <div class="day-info">
-      <h3>🏝️ 蜈支洲岛 · 海岛一日</h3>
-      <span class="date-label">6月19日 周四 全天</span>
+      <h3>🏔️ 周六 · 黄山一日 — 云谷上，玉屏下</h3>
+      <span class="date-label">7月11日 周六 全天 · 体力挑战日</span>
     </div>
   </div>
   <div class="timeline">
-    <div class="timeline-item">
-      <div class="time">🌅 08:00 — 早餐</div>
-      <div class="desc">酒店自助早餐，慢慢吃不赶</div>
-      <div class="note">💡 昨晚睡得晚，不用太早起，9点出发完全可以</div>
+    <div class="timeline-item highlight">
+      <div class="time">🌅 05:30 — 早起出发</div>
+      <div class="desc">简单早餐（让民宿提前准备或自带干粮），退房寄存行李或直接带上</div>
+      <div class="note">⚠️ 今天最关键！早起才能在旅行团前面上山，7月黄山索道排队严重</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚗 09:00 — 出发</div>
-      <div class="desc">打车前往蜈支洲岛码头（海棠湾，~50分钟，¥80-100）</div>
+      <div class="time">🚗 06:00 — 驱车前往黄山南大门</div>
+      <div class="desc">呈坎 → 汤口镇黄山南大门换乘中心（约50公里，1小时车程）</div>
+      <div class="note">💡 包车/拼车约 ¥120-150，或前一晚约好滴滴。公交需转车不推荐</div>
     </div>
     <div class="timeline-item highlight">
-      <div class="time">⛴️ 10:00 — 登船上岛</div>
-      <div class="desc">乘船上岛（~20分钟），上午人比早上少，排队也快</div>
-      <div class="note">🎫 门船票 ¥144/人，提前美团/携程买好扫码进</div>
+      <div class="time">🚌 07:00 — 景区大巴上山</div>
+      <div class="desc">南大门换乘中心 → 云谷寺站（景区大巴，20分钟，¥19）</div>
+      <div class="note">🎫 黄山门票 ¥190 + 云谷索道上 ¥80 + 玉屏索道下 ¥90 = 共约 ¥379</div>
     </div>
     <div class="timeline-item highlight">
-      <div class="time">🤿 10:30 — 13:00 水上运动</div>
+      <div class="time">🚡 07:30 — 云谷索道上行</div>
+      <div class="desc">缆车10分钟直达白鹅岭，进入后山精华区</div>
+    </div>
+    <div class="timeline-item highlight">
+      <div class="time">🥾 07:45 — 12:00 后山 → 光明顶</div>
       <div class="desc">
-        蜈支洲岛 = 三亚最清海水 + 最细白沙<br>
-        浮潜/深潜看珊瑚（¥400-600）、摩托艇、拖伞、海底漫步
+        <strong>后山经典路线（边走边拍，约4小时）：</strong><br>
+        始信峰（黄山十大名松）→ 黑虎松 → 梦笔生花 → 猴子观海<br>
+        → 排云亭（西海峡谷远眺）→ 飞来石 → 光明顶（1860m，360°全景）
+      </div>
+      <div class="note">📸 始信峰和光明顶是出片圣地，多留时间。如体力/时间允许，可绕行西海大峡谷一环（+1.5h）</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🍱 12:00 — 山顶午餐</div>
+      <div class="desc">光明顶山庄或白云宾馆附近，简餐 ¥50-80/人。也可自带自热米饭+零食</div>
+      <div class="note">💡 山上物价高（一瓶水 ¥15），建议自带1.5L水和干粮</div>
+    </div>
+    <div class="timeline-item highlight">
+      <div class="time">🥾 13:00 — 15:30 前山下行</div>
+      <div class="desc">
+        <strong>前山精华（下坡为主，较省力）：</strong><br>
+        鳌鱼峰 → 百步云梯 → 莲花峰远眺 → <strong>迎客松</strong>（黄山地标，必打卡）<br>
+        → 玉屏楼
       </div>
     </div>
     <div class="timeline-item">
-      <div class="time">🍜 13:00 — 岛上午餐</div>
-      <div class="desc">珊瑚酒店自助或小吃摊，也可自带零食</div>
+      <div class="time">🚡 15:30 — 玉屏索道下行</div>
+      <div class="desc">玉屏索道下山至慈光阁（¥90，约10分钟）</div>
+      <div class="note">⚠️ 末班索道约17:00，必须在16:30前到达玉屏站！</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🚌 16:00 — 返回南大门</div>
+      <div class="desc">慈光阁 → 景区大巴 → 汤口南大门（¥19）</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🚗 16:30 — 前往宏村</div>
+      <div class="desc">汤口 → 宏村（约40分钟，¥60-80拼车/打车），傍晚抵达</div>
+      <div class="note">💡 今晚住宏村景区内或周边，明早可以直接逛！</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🏡 17:30 — 入住宏村民宿</div>
+      <div class="desc">徽派老宅民宿，放下行李，洗个热水澡放松双腿</div>
     </div>
     <div class="timeline-item highlight">
-      <div class="time">📸 14:00 — 16:30 环岛打卡</div>
+      <div class="time">🍽️ 18:30 — 宏村晚餐</div>
       <div class="desc">
-        电瓶车环岛 ¥128/人：<br>
-        情人桥 → 观日岩 → 妈祖庙 → 白沙滩躺平
+        宏村景区内或村口徽菜馆：<br>
+        臭鳜鱼、毛豆腐、徽州一品锅、笋干烧肉，配一杯黄山毛峰 🍵
       </div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🏖️ 16:30 — 17:15 收尾</div>
-      <div class="desc">最后沙滩时光，拍照留念</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">⛴️ 17:15 — 离岛</div>
-      <div class="desc">乘船返回码头（末班船 17:30，别错过了！）</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🚗 18:00 — 返回酒店</div>
-      <div class="desc">码头 → 三亚湾酒店（~50分钟）</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🍽️ 19:30 — 晚餐</div>
-      <div class="desc">第一市场海鲜大餐，或酒店附近海南菜</div>
-      <div class="note">推荐：椰子鸡、文昌鸡、和乐蟹、清补凉</div>
+      <div class="note">🌙 饭后可在月沼边散步，夜景灯光下的月沼和南湖别有一番意境</div>
     </div>
   </div>
 </div>
 
-<!-- Day 2: Duty Free + Yalong Bay -->
+<!-- Day 2: Sunday - Ancient Villages + Return -->
 <div class="day-card day-2">
   <div class="day-header">
     <div class="day-number">2</div>
     <div class="day-info">
-      <h3>🛍️ 免税购物 + 🏖️ 亚龙湾</h3>
-      <span class="date-label">6月20日 周五 全天</span>
+      <h3>🏘️ 周日 · 古村三连 — 宏村→西递→呈坎</h3>
+      <span class="date-label">7月12日 周日 清晨—傍晚 · 返程日</span>
     </div>
   </div>
   <div class="timeline">
-    <div class="timeline-item">
-      <div class="time">🌅 08:30 — 早餐</div>
-      <div class="desc">酒店早餐，今天重点是购物，悠闲出发</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🚗 09:30 — 出发</div>
-      <div class="desc">打车前往三亚国际免税城（海棠湾，~50分钟）</div>
-    </div>
-    <div class="timeline-item shop">
-      <div class="time">🛍️ 10:30 — 14:30 三亚国际免税城</div>
+    <div class="timeline-item highlight">
+      <div class="time">🌅 06:30 — 宏村晨雾</div>
       <div class="desc">
-        全球最大单体免税店，A/B两区：<br>
-        <strong>A区：</strong>美妆香水 — 雅诗兰黛、兰蔻、海蓝之谜、SK-II、Tom Ford<br>
-        <strong>B区：</strong>精品 — Gucci、Cartier、Omega、蒙口<br>
-        4小时购物，从容逛完
+        <strong>清晨的宏村是一天中最美的时刻！</strong>趁旅行团未到，独享南湖晨雾和月沼倒影<br>
+        南湖画桥 → 月沼 → 承志堂 → 树人堂 → 汪氏宗祠，慢慢走2小时
       </div>
-      <div class="note">
-        ⚠️ 凭离岛机票+身份证 | 每人¥10万/年额度<br>
-        提货：机场过安检后取（推荐）或即购即提（保证金）<br>
-        📱 提前下载「CDF海南免税」APP，线上下单更省时间
-      </div>
+      <div class="note">📸 南湖画桥日出（6:00前到位）、月沼对称倒影（7:00前无人）— 出片黄金时间<br>🎫 宏村门票 ¥104，入住景区内民宿可能免票或优惠</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🍜 14:30 — 午餐</div>
-      <div class="desc">免税城美食广场或海棠湾附近</div>
+      <div class="time">🥐 08:30 — 宏村早餐</div>
+      <div class="desc">村口早点摊：徽州石头粿、毛豆腐、黄山烧饼、豆浆</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚗 15:30 — 前往亚龙湾</div>
-      <div class="desc">海棠湾 → 亚龙湾（~25分钟），很近</div>
+      <div class="time">🚗 09:00 — 前往西递</div>
+      <div class="desc">宏村 → 西递（约30分钟，客车¥6或打车¥40-50）</div>
     </div>
     <div class="timeline-item highlight">
-      <div class="time">🏖️ 16:00 — 18:30 亚龙湾</div>
+      <div class="time">🏛️ 09:30 — 11:30 西递游览</div>
       <div class="desc">
-        "天下第一湾" — 三亚最经典的沙滩<br>
-        沙质细腻、海浪平缓，游泳/躺平/水上项目都行<br>
-        不想下水？海边酒吧点杯椰子，看日落
+        <strong>西递比宏村更安静，官宅文化深厚：</strong><br>
+        胡文光牌坊（徽州最美牌坊）→ 追慕堂 → 瑞玉庭 → 西园 → 旷古斋<br>
+        村口田园风光，远山为背景，拍照不输宏村
       </div>
+      <div class="note">🎫 西递门票 ¥104<br>💡 宏村看"水"，西递看"官"——各有千秋，都值得去</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🌅 18:30 — 亚龙湾日落</div>
-      <div class="desc">亚龙湾日落很美，拍照出片</div>
+      <div class="time">🍜 11:30 — 午餐</div>
+      <div class="desc">西递村口农家菜，或路上简餐。推荐：笋干面、徽州炒饭</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🚗 19:00 — 返回酒店</div>
-      <div class="desc">亚龙湾 → 三亚湾（~40分钟）</div>
+      <div class="time">🚗 12:15 — 前往呈坎</div>
+      <div class="desc">西递 → 呈坎（约1小时15分钟车程，¥100-130包车）</div>
+      <div class="note">💡 这一段是今天最长的移动，正好在车上休息</div>
+    </div>
+    <div class="timeline-item highlight">
+      <div class="time">☯️ 13:30 — 14:30 呈坎古村</div>
+      <div class="desc">
+        <strong>八卦布局、原生态徽州生活：</strong><br>
+        永兴湖（荷塘倒影）→ 罗东舒祠（国宝级明代祠堂）→ 钟英街 → 燕翼堂<br>
+        迷宫般的巷道，鲜少游客，感受最本真的徽州
+      </div>
+      <div class="note">🎫 呈坎门票 ¥107<br>💡 呈坎商业化最低，老人在巷口聊天、晒秋——最真实的徽州日常</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🍽️ 20:00 — 告别晚餐</div>
-      <div class="desc">最后一晚，试试海南四大名菜或海鲜烧烤</div>
+      <div class="time">🚕 14:30 — 前往黄山北站</div>
+      <div class="desc">呈坎 → 黄山北站（约15公里，20分钟，¥40-60）</div>
+    </div>
+    <div class="timeline-item train">
+      <div class="time">☕ 15:00 — 候车休息</div>
+      <div class="desc">黄山北站候车，买杯咖啡或黄山毛峰，整理照片，发朋友圈 😄</div>
+      <div class="note">⏰ 预留充足时间，不用担心赶车。距G2175发车还有2.5小时，可以慢慢来</div>
+    </div>
+    <div class="timeline-item train">
+      <div class="time">🚄 17:29 — 20:50 G2175 返程</div>
+      <div class="desc">
+        黄山北 → 长沙南，全程 <strong>3小时21分</strong>（最快），二等座 ¥367<br>
+        途经：上饶 → 南昌西 → 长沙南
+      </div>
+      <div class="note">🎫 备选车次：G635（16:09-20:09）如果你想早点到家；G2759（19:33-23:27）最晚一班</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🏠 21:00 — 抵达长沙</div>
+      <div class="desc">长沙南站，地铁回家。周末徽州之旅圆满结束！🏔️✨</div>
     </div>
   </div>
 </div>
 
-<!-- Day 3: Departure -->
-<div class="day-card day-3">
-  <div class="day-header">
-    <div class="day-number">3</div>
-    <div class="day-info">
-      <h3>🌅 悠闲半日 · 离岛</h3>
-      <span class="date-label">6月21日 周六 上午—下午</span>
-    </div>
-  </div>
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="time">🌅 09:00 — 睡到自然醒</div>
-      <div class="desc">不赶时间，酒店早餐慢慢享用</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🏊 10:00 — 酒店时光</div>
-      <div class="desc">泳池游泳、沙滩躺平、或做个SPA</div>
-      <div class="note">💡 凯悦的泳池和花园值得享受，前两天都在外面跑</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🧳 11:30 — 退房</div>
-      <div class="desc">收拾行李，行李可寄存前台</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🍜 12:00 — 午餐</div>
-      <div class="desc">最后一顿海南粉或清补凉</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🚗 13:00 — 前往机场</div>
-      <div class="desc">酒店到机场仅10分钟</div>
-    </div>
-    <div class="timeline-item shop">
-      <div class="time">🛍️ 13:15 — 机场提货</div>
-      <div class="desc">过安检后到免税提货点取货（排队~15-30分钟）</div>
-      <div class="note">⚠️ 提货需身份证+登机牌，建议提前到机场</div>
-    </div>
-    <div class="timeline-item">
-      <div class="time">🛫 下午 — 离开三亚</div>
-      <div class="desc">登机离岛，满载而归 ✈️</div>
-    </div>
-  </div>
-</div>
-
-<!-- Travel routes -->
-<div class="map-area">
-  <h3>🗺️ 交通路线总览</h3>
+<!-- Route Map -->
+<div class="route-area">
+  <h3>🗺️ 全程路线图（自北向南，一路顺行）</h3>
   <div class="route-list">
     <div class="route-item">
-      <span class="route-dot" style="background:#6366f1"></span>
-      <strong>凤凰机场</strong>
+      <span class="route-dot" style="background:#e74c3c"></span>
+      <strong>长沙南</strong>
       <span class="route-line"></span>
-      <span class="route-dot" style="background:#8b5cf6"></span>
-      <strong>天丽湾凯悦</strong>
-      <span class="route-time">🚗 10分钟</span>
+      <span class="route-dot" style="background:#3498db"></span>
+      <strong>黄山北站</strong>
+      <span class="route-time">🚄 G2186 3h33m</span>
+      <span class="route-badge" style="background:#dbeafe;color:#1e40af">周五晚</span>
     </div>
     <div class="route-item">
-      <span class="route-dot" style="background:#8b5cf6"></span>
-      <strong>酒店</strong>
+      <span class="route-dot" style="background:#3498db"></span>
+      <strong>黄山北站</strong>
       <span class="route-line"></span>
-      <span class="route-dot" style="background:#0ea5e9"></span>
-      <strong>蜈支洲岛</strong>
-      <span class="route-time">🚗50min + ⛴️20min</span>
-      <span class="route-badge" style="background:#dbeafe;color:#0369a1">Day 1</span>
+      <span class="route-dot" style="background:#5a7a65"></span>
+      <strong>呈坎民宿</strong>
+      <span class="route-time">🚕 20分钟</span>
+      <span class="route-badge" style="background:#e8f0eb;color:#2d6a4f">宿</span>
     </div>
     <div class="route-item">
-      <span class="route-dot" style="background:#8b5cf6"></span>
-      <strong>酒店</strong>
+      <span class="route-dot" style="background:#5a7a65"></span>
+      <strong>呈坎</strong>
       <span class="route-line"></span>
-      <span class="route-dot" style="background:#f59e0b"></span>
-      <strong>免税城</strong>
-      <span class="route-time">🚗 50分钟</span>
-      <span class="route-badge" style="background:#fef3c7;color:#92400e">Day 2</span>
+      <span class="route-dot" style="background:#2d6a4f"></span>
+      <strong>黄山南大门</strong>
+      <span class="route-time">🚗 1小时</span>
+      <span class="route-badge" style="background:#d1fae5;color:#047857">周六早</span>
     </div>
     <div class="route-item">
-      <span class="route-dot" style="background:#f59e0b"></span>
-      <strong>免税城</strong>
+      <span class="route-dot" style="background:#2d6a4f"></span>
+      <strong>黄山风景区</strong>
       <span class="route-line"></span>
-      <span class="route-dot" style="background:#10b981"></span>
-      <strong>亚龙湾</strong>
-      <span class="route-time">🚗 25分钟</span>
-      <span class="route-badge" style="background:#d1fae5;color:#047857">顺路</span>
-    </div>
-    <div class="route-item">
-      <span class="route-dot" style="background:#10b981"></span>
-      <strong>亚龙湾</strong>
-      <span class="route-line"></span>
-      <span class="route-dot" style="background:#8b5cf6"></span>
-      <strong>酒店</strong>
+      <span class="route-dot" style="background:#c4a882"></span>
+      <strong>宏村</strong>
       <span class="route-time">🚗 40分钟</span>
+      <span class="route-badge" style="background:#fef3c7;color:#92400e">周六晚宿</span>
+    </div>
+    <div class="route-item">
+      <span class="route-dot" style="background:#c4a882"></span>
+      <strong>宏村</strong>
+      <span class="route-line"></span>
+      <span class="route-dot" style="background:#d4a574"></span>
+      <strong>西递</strong>
+      <span class="route-time">🚗 30分钟</span>
+      <span class="route-badge" style="background:#fef3c7;color:#92400e">周日早</span>
+    </div>
+    <div class="route-item">
+      <span class="route-dot" style="background:#d4a574"></span>
+      <strong>西递</strong>
+      <span class="route-line"></span>
+      <span class="route-dot" style="background:#5a7a65"></span>
+      <strong>呈坎</strong>
+      <span class="route-time">🚗 1h15m</span>
+      <span class="route-badge" style="background:#e8f0eb;color:#2d6a4f">周日下午</span>
+    </div>
+    <div class="route-item">
+      <span class="route-dot" style="background:#5a7a65"></span>
+      <strong>呈坎</strong>
+      <span class="route-line"></span>
+      <span class="route-dot" style="background:#3498db"></span>
+      <strong>黄山北站</strong>
+      <span class="route-time">🚕 20分钟</span>
+      <span class="route-badge" style="background:#dbeafe;color:#1e40af">返程</span>
+    </div>
+    <div class="route-item">
+      <span class="route-dot" style="background:#3498db"></span>
+      <strong>黄山北站</strong>
+      <span class="route-line"></span>
+      <span class="route-dot" style="background:#e74c3c"></span>
+      <strong>长沙南</strong>
+      <span class="route-time">🚄 G2175 3h21m</span>
+      <span class="route-badge" style="background:#fce4ec;color:#c62828">周日到家</span>
     </div>
   </div>
+</div>
+
+<!-- Budget -->
+<div class="budget-box">
+  <h3>💰 预算参考（单人）</h3>
+  <table class="budget-table">
+    <tr><th>项目</th><th>明细</th><th class="amount">费用</th></tr>
+    <tr><td>🚄 往返高铁</td><td>长沙南 ↔ 黄山北（二等座）</td><td class="amount">¥742</td></tr>
+    <tr><td>🏨 住宿2晚</td><td>呈坎民宿 ¥200-400 + 宏村民宿 ¥300-600</td><td class="amount">¥500-1,000</td></tr>
+    <tr><td>🎫 黄山景区</td><td>门票 ¥190 + 云谷索道 ¥80 + 玉屏索道 ¥90 + 大巴 ¥38</td><td class="amount">¥398</td></tr>
+    <tr><td>🎫 古村门票</td><td>宏村 ¥104 + 西递 ¥104 + 呈坎 ¥107</td><td class="amount">¥315</td></tr>
+    <tr><td>🚕 当地交通</td><td>打车/拼车/包车（约4-5段行程）</td><td class="amount">¥300-450</td></tr>
+    <tr><td>🍽️ 餐饮</td><td>2早餐 + 2午餐 + 2晚餐 + 零食饮水</td><td class="amount">¥300-500</td></tr>
+    <tr><td><strong>合计</strong></td><td></td><td class="amount"><strong>¥2,555-3,405</strong></td></tr>
+  </table>
 </div>
 
 <!-- Tips -->
 <div class="tips">
   <h3>📋 出行小贴士</h3>
   <ul>
-    <li><strong>深夜入住：</strong>提前联系天丽湾凯悦，告知 6/18 凌晨入住，确保房间保留和前台值班</li>
-    <li><strong>6/19 蜈支洲岛：</strong>门船票提前美团/携程买（¥144），扫码入园；末班船 17:30，记得提前去码头</li>
-    <li><strong>6/20 免税+亚龙湾：</strong>免税城 10:00 开门，4小时够逛；下午亚龙湾正好避开最晒时段，待到日落</li>
-    <li><strong>天气：</strong>6月三亚 28-33°C，防晒霜 SPF50+、遮阳帽、太阳镜必备；6/19 岛上紫外线更强</li>
-    <li><strong>交通：</strong>滴滴/高德叫车，全程打车总费用约 ¥300-400；不打表议价的出租车别上</li>
-    <li><strong>免税购物：</strong>提前下载「CDF海南免税」APP 比价+线上下单；机场提货过安检后，排队 15-30 分钟</li>
-    <li><strong>衣物：</strong>短袖短裤、泳衣（6/19 直接穿出门）、拖鞋、薄外套（室内空调猛）</li>
-    <li><strong>防蚊：</strong>海边蚊虫多，驱蚊喷雾必备</li>
-    <li><strong>海鲜：</strong>第一市场买海鲜加工先问清加工费；推荐：椰子鸡、文昌鸡、和乐蟹、清补凉</li>
-    <li><strong>预算参考：</strong>酒店3晚 ¥2500-4500 + 蜈支洲岛 ¥150-700/人 + 免税购物另算 + 餐饮交通 ¥800-1200</li>
+    <li><strong>购票提醒：</strong>周五下午的G2186和周日傍晚的G2175都是热门车次，建议提前15天（6月25日起）在12306蹲点抢票；备选车次也一并关注</li>
+    <li><strong>住宿预订：</strong>7月黄山暑期旺季，呈坎和宏村的优质民宿提前2周以上预订；宏村景区内民宿推窗即景但价格偏高（¥400-800），景区外步行5分钟的性价比更高（¥200-400）</li>
+    <li><strong>黄山登山装备：</strong>防滑登山鞋必备！登山杖山脚¥5/根；山上温差6-8°C，带薄冲锋衣或防晒衣；1.5L水+高热量零食（巧克力、牛肉干）；充电宝+离线地图</li>
+    <li class="warn"><strong>黄山索道末班：</strong>玉屏索道末班约17:00，必须在16:30前抵达玉屏站！错过只能步行2.5小时下山</li>
+    <li><strong>7月天气：</strong>黄山山上18-28°C，山脚28-35°C。防晒霜SPF50+、遮阳帽必备；山上天气多变，带一次性雨衣（不要带伞，雷击风险）</li>
+    <li><strong>古村最佳时间：</strong>宏村清晨6:30-8:00是黄金时段，月沼和南湖几乎没有游客；西递上午光线最好；呈坎下午永兴湖荷花光影美</li>
+    <li><strong>周三免票：</strong>黄山、宏村、西递每周三有免票活动（需抢预约），如果时间灵活可调整到周三去某个景点省门票</li>
+    <li><strong>宏村住宿：</strong>强烈推荐住景区内徽派民宿，清晨推窗就是月沼晨雾，旅行团9点才来，独享2小时</li>
+    <li><strong>黄山一日游强度：</strong>双索道闭环约7-8小时、步行约4小时、2万步左右。体力一般者可跳过西海大峡谷一环，节省1.5小时</li>
+    <li><strong>交通避坑：</strong>黄山北站出站后有很多黑车拉客，价格虚高。建议滴滴/高德叫车，或提前联系民宿安排接站</li>
+    <li><strong>当地美食：</strong>臭鳜鱼（徽菜头牌）、毛豆腐（《舌尖》同款）、徽州一品锅、笋干烧肉、黄山烧饼、石头粿。伴手礼：黄山毛峰、祁门红茶、徽墨酥</li>
+    <li class="warn"><strong>体力警告：</strong>周六黄山2万步+周日三村暴走，对体力要求较高。如果周日觉得累，可以跳过西递直接去呈坎，或在宏村多待一会儿</li>
   </ul>
 </div>
 
