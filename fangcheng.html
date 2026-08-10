@@ -150,6 +150,9 @@
   .timeline-item.wedding .time { color: var(--vermilion-dark); }
   .timeline-item.train .time { color: #2471a3; }
   .timeline-item.city .time { color: #a5781c; }
+  .timeline-item.highlight { background: #fdf8ee; border-color: #f0e2c4; }
+  .timeline-item.highlight::before { box-shadow: 0 0 0 2px var(--gold); }
+  .timeline-item.highlight .time { color: #a5781c; }
   .timeline-item .desc { font-size: .95em; line-height: 1.6; }
   .timeline-item .note {
     font-size: .82em; color: var(--muted); margin-top: 5px;
@@ -287,7 +290,7 @@
 
 <!-- Design Philosophy -->
 <div class="philosophy">
-  🎯 <strong>路线逻辑：</strong>长沙 → 郑州没有直达方城的高铁，且你也想顺路玩郑州 —— 于是走「长沙 → 郑州（半天+一晚）→ 方城（婚礼）→ 折返」的自然顺行路线，<strong>不绕路、不空转</strong>。<br>
+  🎯 <strong>路线逻辑：</strong>长沙 → 郑州没有直达方城的高铁 —— 于是把郑州当作中转站 + 玩半天：4/30 下午到晚上留给 <strong>只有河南·戏剧幻城</strong>（含夜景灯光秀），5/1 一早南下参加婚礼，<strong>不绕路、不空转</strong>。<br>
   ❤️ 婚礼安排在 5月1日（周六），4月30日出发、5月2日返程，只请 1 天假（4/30）。
 </div>
 
@@ -320,7 +323,7 @@
   <div class="day-header">
     <div class="day-number">1</div>
     <div class="day-info">
-      <h3>🏙️ 周五 · 长沙 → 郑州，河南博物院 + 二七塔</h3>
+      <h3>🎭 周五 · 长沙 → 郑州，只有河南·戏剧幻城</h3>
       <span class="date-label">4月30日 周五 早上出发 — 当晚</span>
     </div>
   </div>
@@ -335,28 +338,48 @@
       <div class="note">🎫 五一高峰，去程票约 4/15 开售，准点抢票 + 开候补！</div>
     </div>
     <div class="timeline-item">
-      <div class="time">🏨 抵达 — 郑州东站，先放行李</div>
-      <div class="desc">郑州东站内即可办理入住 / 寄存行李。午餐就近解决：烩面、胡辣汤、灌汤包，郑州的「第一顿」</div>
-      <div class="note">💡 住郑州东站附近，第二天一早高铁无缝衔接，不折腾</div>
+      <div class="time">🏨 抵达 — 郑州东站，先放行李 / 午餐</div>
+      <div class="desc">郑州东站内入住 / 寄存行李。就近快速午餐：烩面、胡辣汤、灌汤包，郑州的「第一顿」</div>
+      <div class="note">💡 住郑州东站附近，5/1 一早高铁去方城无缝衔接；午后直接出发去只有河南，行李也不用带</div>
     </div>
-    <div class="timeline-item city">
-      <div class="time">🏛️ 下午 — 河南博物院（约3小时）</div>
+    <div class="timeline-item">
+      <div class="time">🚕 13:00 — 出发前往 只有河南·戏剧幻城</div>
       <div class="desc">
-        <strong>中国顶级博物馆之一，郑州必去。</strong>九大镇院之宝：贾湖骨笛、妇好鸮尊、莲鹤方壶、云纹铜禁……<br>
-        五一假期延时开放至 <strong>20:30</strong>，建议约下午场（12:00-16:00）。
+        郑州东站打车约 <strong>30-45分钟</strong>（¥35-60），或坐 <strong>S606路公交</strong>直达。<br>
+        地址：中牟县平安大道与广信街交叉口西北角
       </div>
-      <div class="note">
-        🎫 免费但需预约：微信「河南博物院」小程序，提前5天、每日17:00放票。五一票秒光，没抢到可抢当日延时场（16:00放票）或先逛免预约特展<br>
-        🚇 地铁2号线（关虎屯站）/7号线（农业大学站）到达，假期车位极难，务必地铁出行
+      <div class="note">💡 五一节假日约 9:30 开园、21:00-22:00 闭园。你下午入场玩到晚上 8-9 点，正好是「下午看剧 + 夜景观灯」的黄金时段</div>
+    </div>
+    <div class="timeline-item city">
+      <div class="time">🎭 14:00 — 主剧一场：《幻城》剧场（约60分钟）</div>
+      <div class="desc">
+        <strong>王潮歌执导的沉浸式戏剧聚落，21座剧场、百亩麦田。</strong>三大主剧《幻城》《火车站》《李家村》，一日票含 <strong>1 场主剧</strong>，半天行程首推最经典的《幻城》。<br>
+        黄土、麦田、城墙为符号，把河南从远古到当代的故事讲给你听。
+      </div>
+      <div class="note">🎫 微信小程序「只有河南戏剧幻城」提前购票，主剧需<strong>预约场次</strong>——五一场次满得快，越早约越好！想看多场主剧可买两日通票 ¥490</div>
+    </div>
+    <div class="timeline-item city">
+      <div class="time">🎬 15:30 — 2-3 场小剧场 + 园区漫游</div>
+      <div class="desc">
+        21 座剧场里 18 座小剧场任选（一日票全含），夯土墙、麦田、地坑院随手都是大片。<br>
+        按当天节目单挑排队短的优先，留足体力看晚上灯光秀
       </div>
     </div>
     <div class="timeline-item city">
-      <div class="time">🌆 傍晚 — 二七纪念塔 + 二七广场</div>
-      <div class="desc">郑州的地标与「城市原点」，1951年为纪念京汉铁路工人大罢工而建。登上塔顶可俯瞰二七商圈，广场周边就是老郑州的烟火气</div>
+      <div class="time">🍜 18:30 — 园区晚餐</div>
+      <div class="desc">园内有餐饮区，边吃边等天黑。若想回市区吃，也可早点出园去德化街夜市</div>
     </div>
-    <div class="timeline-item city">
-      <div class="time">🍽️ 晚上 — 德化街 / 二七商圈晚餐</div>
-      <div class="desc">百年德化街夜市：萧记烩面、方中山胡辣汤（配油饼更香）、葛记焖饼，或来一顿地道豫菜</div>
+    <div class="timeline-item highlight">
+      <div class="time">✨ 20:30 — 夯土墙《文明之光》灯光秀（今日高光）</div>
+      <div class="desc">
+        <strong>百亩麦田环抱下，百米夯土城墙上的激光投影秀循环上演</strong>——这是只有河南最震撼的夜景，也是郑州夜色里最出圈的一幕。<br>
+        看完灯光秀再趁夜景逛一圈，人少、氛围拉满
+      </div>
+      <div class="note">📸 麦田+夯土墙+灯光是经典机位；灯光秀结束后园区逐渐安静，夜景随手拍都出片</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🚕 21:30 — 返回郑州东站酒店</div>
+      <div class="desc">中牟回市区约 30-45 分钟。夜路建议提前用网约车叫车，到酒店正好休息，明天一早南下</div>
     </div>
   </div>
 </div>
@@ -459,9 +482,9 @@
       <strong>郑州东</strong>
       <span class="route-line"></span>
       <span class="route-dot" style="background:#c98f20"></span>
-      <strong>市区游玩</strong>
-      <span class="route-time">🚇 地铁</span>
-      <span class="route-badge" style="background:#fdf0d8;color:#a5781c">河南博物院·二七塔</span>
+      <strong>只有河南·戏剧幻城</strong>
+      <span class="route-time">🚕 打车 30-45分钟</span>
+      <span class="route-badge" style="background:#fdf0d8;color:#a5781c">4/30 下午+夜景灯光秀</span>
     </div>
     <div class="route-item">
       <span class="route-dot" style="background:#c98f20"></span>
@@ -509,10 +532,10 @@
     <tr><th>项目</th><th>明细</th><th class="amount">费用</th></tr>
     <tr><td>🚄 往返高铁</td><td>长沙南↔郑州东 ¥393.5×2 + 郑州东↔方城 ¥~120×2</td><td class="amount">¥1,027</td></tr>
     <tr><td>🏨 住宿2晚</td><td>郑州（五一高峰）¥250-400 + 方城 ¥200-350</td><td class="amount">¥450-750</td></tr>
-    <tr><td>🚕 当地交通</td><td>郑州地铁/打车 + 方城站接送</td><td class="amount">¥100-200</td></tr>
+    <tr><td>🚕 当地交通</td><td>郑州东↔只有河南打车 ¥70-120 + 方城站接送</td><td class="amount">¥150-300</td></tr>
     <tr><td>🍽️ 餐饮</td><td>3午餐 + 2晚餐 + 早餐零食</td><td class="amount">¥250-400</td></tr>
-    <tr><td>🎫 景点门票</td><td>河南博物院免费（预约）；去七峰山/七十二潭另 +¥60-80</td><td class="amount">¥0-80</td></tr>
-    <tr><td><strong>合计</strong></td><td>（不含份子钱）</td><td class="amount"><strong>¥1,850-2,460</strong></td></tr>
+    <tr><td>🎫 景点门票</td><td>只有河南·戏剧幻城一日票（含1场主剧+18小剧场）；去七峰山/七十二潭另 +¥60-80</td><td class="amount">¥290-370</td></tr>
+    <tr><td><strong>合计</strong></td><td>（不含份子钱）</td><td class="amount"><strong>¥2,170-2,770</strong></td></tr>
   </table>
   <p style="font-size:.85em;color:var(--muted);margin-top:10px;">🧧 份子钱另计：一般关系 ¥600-800，挚友 ¥1,000-2,000，视关系与当地行情定。</p>
 </div>
@@ -523,7 +546,11 @@
   <ul>
     <li><strong>抢票时间轴：</strong>4/30 去程票约 4/15 开售，5/2 返程票约 4/17 开售。五一高峰热门班次秒空，开好闹钟 + 12306「候补」双保险。<strong>返程方城站车次少，联程票要提前规划</strong></li>
     <li class="warn"><strong>请假提醒：</strong>4/30（周五）很可能在官方调休里是工作日，需提前请假 1 天。2027年五一放假安排预计 2026 年底公布；5/1 恰逢周六，大概率 5/1-5/5 放假。若只放 3 天，这个行程正合适</li>
-    <li><strong>河南博物院预约：</strong>免费但需实名预约，微信「河南博物院」小程序，提前5天每日17:00放票。五一白天票秒光是常态——没抢到就抢当日延时场（16:00放票，延时至20:30），或先逛免预约特展。谨防第三方「门票+讲解」黄牛，官方从未授权</li>
+    <li><strong>只有河南购票：</strong>微信小程序「只有河南戏剧幻城」提前购票，五一热门尽早下单。一日票约 ¥290（含 <strong>1场主剧 + 18座小剧场</strong>）；想看多场主剧买两日通票约 ¥490。节假日价格有浮动，以小程序为准</li>
+    <li><strong>主剧选哪场：</strong>三大主剧《幻城》《火车站》《李家村》，半天行程首推最经典的《幻城》。主剧在购票时<strong>预约场次</strong>，五一场次满得快，越早约越好</li>
+    <li><strong>交通：</strong>郑州东站打车约 30-45 分钟（¥35-60），或 S606 路公交直达。晚归建议提前网约车叫车</li>
+    <li><strong>夜景别错过：</strong>每晚约 20:30 夯土墙《文明之光》激光投影秀，百亩麦田环抱的夜景是只有河南的高光时刻，看完主剧别急着走</li>
+    <li><strong>开放时间：</strong>节假日通常 9:30 开园、21:00-22:00 闭园。4/30 下午入场玩到晚上 8-9 点正合适；园区内可解决晚餐</li>
     <li><strong>婚礼三问：</strong>① 午宴还是晚宴、几点开席？② 有没有需要帮忙/提前到的安排？③ 县城还是乡下办？—— 直接问新人，比猜靠谱</li>
     <li><strong>份子钱：</strong>河南一般 600-800 起步，挚友 1000-2000。准备好现金 + 微信红包两手，避免现场手忙脚乱</li>
     <li><strong>方城接送：</strong>方城站→县城约20-30分钟。五一假期网约车能叫到，但提前让新人安排接站最省心</li>
