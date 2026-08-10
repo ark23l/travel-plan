@@ -12,6 +12,7 @@
     --muted: #7f8c8d;
     --pine: #2d6a4f;
     --ocean: #0ea5e9;
+    --wed: #b03a2e;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -40,6 +41,7 @@
   .trip-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.1); }
   .trip-card.mountain { border-left-color: var(--pine); }
   .trip-card.beach { border-left-color: var(--ocean); }
+  .trip-card.wedding { border-left-color: var(--wed); }
   .trip-card .emoji { font-size: 2.8em; flex-shrink: 0; }
   .trip-card h3 { font-size: 1.15em; font-weight: 700; margin-bottom: 4px; }
   .trip-card .meta { font-size: .85em; color: var(--muted); }
@@ -58,6 +60,15 @@
 <div class="container">
   <h1>🗺️ 旅行计划</h1>
   <p class="sub">点击查看详细行程</p>
+
+  <a href="fangcheng.html" class="trip-card wedding">
+    <span class="emoji">💒</span>
+    <div>
+      <h3>五一婚礼行 · 长沙 → 郑州 → 方城</h3>
+      <span class="meta">📅 2027年4月30日—5月2日 · 先玩郑州，再赴方城婚礼</span>
+    </div>
+    <span class="arrow">→</span>
+  </a>
 
   <a href="huangshan.html" class="trip-card mountain">
     <span class="emoji">🏔️</span>

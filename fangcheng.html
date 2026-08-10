@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ 五一婚礼行 · 长沙 → 郑州 → 方城</title>
+<style>
+  :root {
+    --vermilion: #b03a2e;
+    --vermilion-dark: #8e2a20;
+    --vermilion-light: #d1584a;
+    --brick: #a8543a;
+    --loess: #d9b380;
+    --gold: #d4a02c;
+    --ink: #3b2f2b;
+    --wall: #f8f2e9;
+    --bg: #faf5ee;
+    --card: #ffffff;
+    --text: #3b2f2b;
+    --muted: #8a7a6d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, #f4e8d8 0%, #faf5ee 30%, #faf5ee 65%, #f1e4d0 100%);
+    min-height: 100vh;
+    color: var(--text);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #5c1a14 0%, #7e241c 25%, #a83226 45%, #c65a3c 65%, #d9a56b 100%);
+    color: white;
+    padding: 64px 20px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 50px;
+    background: linear-gradient(transparent, var(--bg));
+  }
+  .hero h1 { font-size: 2.5em; font-weight: 800; letter-spacing: 2px; position: relative; z-index: 1; }
+  .hero .subtitle { font-size: 1.15em; opacity: .9; margin-top: 10px; position: relative; z-index: 1; }
+  .hero .dates {
+    display: inline-block;
+    margin-top: 18px;
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(10px);
+    padding: 8px 28px;
+    border-radius: 50px;
+    font-size: 1.05em;
+    position: relative; z-index: 1;
+  }
+  .hero .tag {
+    display: inline-block;
+    margin-top: 10px;
+    background: rgba(255,255,255,.1);
+    padding: 5px 18px;
+    border-radius: 50px;
+    font-size: .85em;
+    position: relative; z-index: 1;
+  }
+
+  .container { max-width: 900px; margin: -24px auto 60px; padding: 0 20px; position: relative; z-index: 2; }
+
+  .philosophy {
+    background: linear-gradient(135deg, #fbf0e0, #fdf6ee);
+    border-radius: 16px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-size: .95em;
+    color: var(--ink);
+    border: 1px solid #ecd9bf;
+    line-height: 1.7;
+  }
+  .philosophy strong { color: var(--vermilion); }
+
+  .day-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.05), 0 1px 3px rgba(0,0,0,.03);
+    border-left: 6px solid var(--vermilion);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .day-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.08); }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  .day-number {
+    width: 54px; height: 54px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4em; font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+  }
+  .day-info h3 { font-size: 1.25em; font-weight: 700; }
+  .day-info .date-label { font-size: .88em; color: var(--muted); }
+
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: #eadcc8;
+    border-radius: 1px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    background: #fdfbf7;
+    border-radius: 12px;
+    border: 1px solid #f0e4d2;
+  }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px; top: 22px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2.5px solid white;
+    box-shadow: 0 0 0 2px var(--brick);
+  }
+  .timeline-item.wedding::before { box-shadow: 0 0 0 2px var(--vermilion); }
+  .timeline-item.train::before { box-shadow: 0 0 0 2px #3498db; }
+  .timeline-item.city::before { box-shadow: 0 0 0 2px var(--gold); }
+  .timeline-item .time {
+    font-size: .82em;
+    font-weight: 700;
+    color: var(--brick);
+    margin-bottom: 3px;
+  }
+  .timeline-item.wedding .time { color: var(--vermilion-dark); }
+  .timeline-item.train .time { color: #2471a3; }
+  .timeline-item.city .time { color: #a5781c; }
+  .timeline-item .desc { font-size: .95em; line-height: 1.6; }
+  .timeline-item .note {
+    font-size: .82em; color: var(--muted); margin-top: 5px;
+    display: flex; align-items: flex-start; gap: 4px;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .info-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 22px 18px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.04);
+    text-align: center;
+  }
+  .info-card .icon { font-size: 2.2em; margin-bottom: 8px; }
+  .info-card h4 { font-size: .95em; font-weight: 700; margin-bottom: 4px; color: var(--ink); }
+  .info-card p { font-size: .85em; color: var(--muted); line-height: 1.6; }
+
+  .tips {
+    background: linear-gradient(135deg, #fdf6ee, #f8ecda);
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    border: 1px solid #ecd9bf;
+  }
+  .tips h3 { font-size: 1.15em; margin-bottom: 14px; color: var(--ink); }
+  .tips ul { list-style: none; }
+  .tips li { padding: 7px 0; font-size: .93em; line-height: 1.6; }
+  .tips li::before { content: '💡 '; }
+  .tips li.warn::before { content: '⚠️ '; }
+
+  .route-area {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 26px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.04);
+  }
+  .route-area h3 { margin-bottom: 18px; font-size: 1.1em; color: var(--ink); }
+  .route-list { display: flex; flex-direction: column; gap: 10px; }
+  .route-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 16px;
+    background: #fdfbf7;
+    border-radius: 10px;
+    font-size: .88em;
+    flex-wrap: wrap;
+  }
+  .route-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .route-line {
+    flex: 1; min-width: 20px; height: 1px;
+    border-top: 2px dashed #dccdb4;
+  }
+  .route-badge {
+    font-size: .78em; padding: 3px 10px;
+    border-radius: 10px; white-space: nowrap;
+    font-weight: 600;
+  }
+  .route-time { color: var(--muted); font-size: .82em; white-space: nowrap; }
+
+  .budget-box {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.04);
+  }
+  .budget-box h3 { margin-bottom: 16px; font-size: 1.1em; color: var(--ink); }
+  .budget-table { width: 100%; border-collapse: collapse; font-size: .9em; }
+  .budget-table th, .budget-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #f0e4d2;
+  }
+  .budget-table th { color: var(--muted); font-weight: 600; font-size: .82em; text-transform: uppercase; }
+  .budget-table tr:last-child td { border-bottom: none; font-weight: 700; color: var(--vermilion); }
+  .budget-table .amount { text-align: right; font-variant-numeric: tabular-nums; font-family: "SF Mono", "Menlo", monospace; }
+
+  .compare-box {
+    background: linear-gradient(135deg, #fdf3e3, #f8e9d0);
+    border-radius: 16px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    border: 1px solid #e4cba4;
+    font-size: .9em;
+  }
+  .compare-box h4 { margin-bottom: 10px; color: var(--vermilion-dark); }
+  .compare-box .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .compare-box .old { color: var(--muted); }
+  .compare-box .new { color: var(--vermilion-dark); font-weight: 600; }
+
+  .day-1 .day-number { background: linear-gradient(135deg, #d4a02c, #e0b54f); }
+  .day-1 { border-left-color: #c98f20; }
+  .day-1 .timeline-item::before { box-shadow: 0 0 0 2px #c98f20; }
+  .day-1 .timeline-item .time { color: #a5781c; }
+  .day-2 .day-number { background: linear-gradient(135deg, #b03a2e, #d1584a); }
+  .day-2 { border-left-color: #b03a2e; }
+  .day-2 .timeline-item::before { box-shadow: 0 0 0 2px #b03a2e; }
+  .day-2 .timeline-item .time { color: #8e2a20; }
+  .day-3 .day-number { background: linear-gradient(135deg, #a8543a, #bf7155); }
+  .day-3 { border-left-color: #a8543a; }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.7em; letter-spacing: 1px; }
+    .day-card { padding: 20px; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+    .route-item { font-size: .82em; }
+    .budget-table { font-size: .8em; }
+    .compare-box .compare-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>❤️ 五一婚礼行 · 长沙 → 郑州 → 方城</h1>
+  <p class="subtitle">先玩郑州，再赴方城婚礼 · 3天2晚，顺路不绕</p>
+  <div class="dates">📅 2027年4月30日（周五）— 5月2日（周日）</div>
+  <div class="tag">🚄 全程高铁 · 郑州1晚 + 方城1晚 · 5月1日婚礼</div>
+</section>
+
+<div class="container">
+
+<!-- Design Philosophy -->
+<div class="philosophy">
+  🎯 <strong>路线逻辑：</strong>长沙 → 郑州没有直达方城的高铁，且你也想顺路玩郑州 —— 于是走「长沙 → 郑州（半天+一晚）→ 方城（婚礼）→ 折返」的自然顺行路线，<strong>不绕路、不空转</strong>。<br>
+  ❤️ 婚礼安排在 5月1日（周六），4月30日出发、5月2日返程，只请 1 天假（4/30）。
+</div>
+
+<!-- Key Info -->
+<div class="info-grid">
+  <div class="info-card">
+    <div class="icon">🚄</div>
+    <h4>去程</h4>
+    <p>4月30日 周五<br>长沙南 → 郑州东 高铁<br>约3-4小时 · 二等座 ¥393.5<br>建议早班车，中午前到</p>
+  </div>
+  <div class="info-card">
+    <div class="icon">💒</div>
+    <h4>婚礼</h4>
+    <p>5月1日 周六 方城县<br>郑州东 → 方城 高铁约1h10m<br>方城站到县城约20-30分钟<br>⚠️ 确认午宴还是晚宴</p>
+  </div>
+  <div class="info-card">
+    <div class="icon">🏨</div>
+    <h4>住宿（2晚）</h4>
+    <p>4/30 郑州：郑州东站附近<br>（方便次日一早去方城）<br>5/1 方城：婚礼场地附近<br>或县城中心</p>
+  </div>
+  <div class="info-card">
+    <div class="icon">🚄</div>
+    <h4>返程</h4>
+    <p>5月2日 周日<br>方城 → 郑州东 → 长沙南<br>全程约5-6小时（中转1次）<br>傍晚到家</p>
+  </div>
+</div>
+
+<!-- Day 1: Friday - Changsha to Zhengzhou -->
+<div class="day-card day-1">
+  <div class="day-header">
+    <div class="day-number">1</div>
+    <div class="day-info">
+      <h3>🏙️ 周五 · 长沙 → 郑州，河南博物院 + 二七塔</h3>
+      <span class="date-label">4月30日 周五 早上出发 — 当晚</span>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item train">
+      <div class="time">🚄 07:00—08:00 发车 — 长沙南 → 郑州东</div>
+      <div class="desc">
+        高铁约 <strong>3~4小时</strong>，二等座 ¥393.5，全天 40+ 趟车。<br>
+        建议选 <strong>7-8点早班车</strong>，中午前后到郑州，腾出整个下午游玩。<br>
+        （参考：G534 07:10—10:44、G502 07:36—10:59，以12306为准）
+      </div>
+      <div class="note">🎫 五一高峰，去程票约 4/15 开售，准点抢票 + 开候补！</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🏨 抵达 — 郑州东站，先放行李</div>
+      <div class="desc">郑州东站内即可办理入住 / 寄存行李。午餐就近解决：烩面、胡辣汤、灌汤包，郑州的「第一顿」</div>
+      <div class="note">💡 住郑州东站附近，第二天一早高铁无缝衔接，不折腾</div>
+    </div>
+    <div class="timeline-item city">
+      <div class="time">🏛️ 下午 — 河南博物院（约3小时）</div>
+      <div class="desc">
+        <strong>中国顶级博物馆之一，郑州必去。</strong>九大镇院之宝：贾湖骨笛、妇好鸮尊、莲鹤方壶、云纹铜禁……<br>
+        五一假期延时开放至 <strong>20:30</strong>，建议约下午场（12:00-16:00）。
+      </div>
+      <div class="note">
+        🎫 免费但需预约：微信「河南博物院」小程序，提前5天、每日17:00放票。五一票秒光，没抢到可抢当日延时场（16:00放票）或先逛免预约特展<br>
+        🚇 地铁2号线（关虎屯站）/7号线（农业大学站）到达，假期车位极难，务必地铁出行
+      </div>
+    </div>
+    <div class="timeline-item city">
+      <div class="time">🌆 傍晚 — 二七纪念塔 + 二七广场</div>
+      <div class="desc">郑州的地标与「城市原点」，1951年为纪念京汉铁路工人大罢工而建。登上塔顶可俯瞰二七商圈，广场周边就是老郑州的烟火气</div>
+    </div>
+    <div class="timeline-item city">
+      <div class="time">🍽️ 晚上 — 德化街 / 二七商圈晚餐</div>
+      <div class="desc">百年德化街夜市：萧记烩面、方中山胡辣汤（配油饼更香）、葛记焖饼，或来一顿地道豫菜</div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 2: Saturday - Wedding day -->
+<div class="day-card day-2">
+  <div class="day-header">
+    <div class="day-number">2</div>
+    <div class="day-info">
+      <h3>💒 周六 · 郑州 → 方城，赴一场婚礼</h3>
+      <span class="date-label">5月1日 周六 婚礼日</span>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item train">
+      <div class="time">🚄 早上 — 郑州东 → 方城 高铁（约1h10m）</div>
+      <div class="desc">
+        郑渝高铁经停<strong>方城站</strong>，车程约 <strong>1小时10分~1小时20分</strong>。<br>
+        建议选 <strong>8-9点</strong> 的车次，10:30 前到站，从容准备参加婚礼。<br>
+        （参考：G7981 07:12—08:24、G3403 09:59—11:09，以12306为准）
+      </div>
+      <div class="note">⚠️ 若婚礼是午宴，务必赶 <strong>10:00 前</strong> 到方城站；若晚宴则从容很多。提前问清新人的安排</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🚕 10:30 — 方城站 → 婚礼场地</div>
+      <div class="desc">方城站到县城约 <strong>20-30分钟</strong>车程。五一假期方城站客流量小，网约车/出租车都能叫到，更稳妥的是提前让新人家安排接站</div>
+      <div class="note">💡 提前和新娘/新郎确认接送安排，或者县城内打车都很方便</div>
+    </div>
+    <div class="timeline-item wedding">
+      <div class="time">💒 中午 / 晚上 — 参加婚礼</div>
+      <div class="desc">
+        <strong>今天的主角就是这场婚礼。</strong>河南县城婚礼多为<strong>午宴</strong>（11:00-14:00开席），也有晚宴，以新人邀请函为准。<br>
+        送上祝福与份子钱，好好见证老友/亲人的幸福时刻 🎉
+      </div>
+      <div class="note">🧧 份子钱河南一般 600-800 起步、挚友 1000-2000，视关系定；扫码或现金均可，提前准备</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🍜 婚礼结束后 — 逛方城县城</div>
+      <div class="desc">
+        方城是「<strong>中国烩面之乡</strong>」——婚宴吃的是席面，夜里再来一碗正宗的<strong>方城羊肉烩面</strong>收尾：老牌顺城烩面、老电影院胡辣汤（配豆腐丝和人造肉）都是本地味道
+      </div>
+      <div class="note">🏡 入住婚礼场地附近或县城中心酒店，结束后早点休息</div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 3: Sunday - Return -->
+<div class="day-card day-3">
+  <div class="day-header">
+    <div class="day-number">3</div>
+    <div class="day-info">
+      <h3>🚄 周日 · 方城 → 郑州 → 长沙，满载而归</h3>
+      <span class="date-label">5月2日 周日 返程日</span>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time">⛰️ 上午（机动）— 时间够可去方城周边</div>
+      <div class="desc">
+        方城有 3 个国家4A级景区，若婚礼结束早、体力好可选一处浅逛：<br>
+        • <strong>七峰山</strong>（距县城15km）：楚长城 + 玻璃栈道，方城最高峰<br>
+        • <strong>七十二潭</strong>：中国唯一「石川」地质奇观，亲水步道
+      </div>
+      <div class="note">⏰ 3天行程偏紧，若要逛景区建议 5/2 早出发（8:00前），10:30 前回县城赶车；赶不上就果断放弃，返程优先</div>
+    </div>
+    <div class="timeline-item train">
+      <div class="time">🚄 方城 → 郑州东（约1h10m）</div>
+      <div class="desc">
+        方城站车次较少，<strong>务必提前买好联程票</strong>。参考时段：9:00-12:00 出发，为换乘预留 40 分钟以上<br>
+        （方城站以郑渝线南北向车次为主，去长沙需在郑州东换乘）
+      </div>
+      <div class="note">🎫 返程票约 4/17 开售。若没买到合适的联程，可考虑郑州东多停留，下午再走</div>
+    </div>
+    <div class="timeline-item train">
+      <div class="time">🚄 郑州东 → 长沙南（约3-4小时）</div>
+      <div class="desc">郑州东下午 1-3 点发车，约 4-6 点抵长沙南。车上整理照片、睡一觉，婚礼的余味还在 🎈</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">🏠 傍晚 — 回到长沙</div>
+      <div class="desc">长沙南站地铁回家。3天2晚，郑州的城 + 方城的婚礼，都收进记忆里 ❤️</div>
+    </div>
+  </div>
+</div>
+
+<!-- Route Map -->
+<div class="route-area">
+  <h3>🗺️ 全程路线（顺行往返，只中转一次）</h3>
+  <div class="route-list">
+    <div class="route-item">
+      <span class="route-dot" style="background:#e74c3c"></span>
+      <strong>长沙南</strong>
+      <span class="route-line"></span>
+      <span class="route-dot" style="background:#3498db"></span>
+      <strong>郑州东</strong>
+      <span class="route-time">🚄 高铁 3-4h</span>
+      <span class="route-badge" style="background:#fdf0d8;color:#a5781c">4/30 早</span>
+    </div>
+    <div class="route-item">
+      <span class="route-dot" style="background:#3498db"></span>
+      <strong>郑州东</strong>
+      <span class="route-line"></span>
+      <span class="route-dot" style="background:#c98f20"></span>
+      <strong>市区游玩</strong>
+      <span class="route-time">🚇 地铁</span>
+      <span class="route-badge" style="background:#fdf0d8;color:#a5781c">河南博物院·二七塔</span>
+    </div>
+    <div class="route-item">
+      <span class="route-dot" style="background:#c98f20"></span>
+      <strong>郑州</strong>
+      <span class="route-line"></span>
+      <span class="route-dot" style="background:#b03a2e"></span>
+      <strong>方城</strong>
+      <span class="route-time">🚄 郑渝高铁 1h10m</span>
+      <span class="route-badge" style="background:#fbe4e0;color:#8e2a20">5/1 婚礼💒</span>
+    </div>
+    <div class="route-item">
+      <span class="route-dot" style="background:#b03a2e"></span>
+      <strong>方城</strong>
+      <span class="route-line"></span>
+      <span class="route-dot" style="background:#3498db"></span>
+      <strong>郑州东</strong>
+      <span class="route-time">🚄 郑渝高铁 1h10m</span>
+      <span class="route-badge" style="background:#fbe4e0;color:#8e2a20">5/2 上午</span>
+    </div>
+    <div class="route-item">
+      <span class="route-dot" style="background:#3498db"></span>
+      <strong>郑州东</strong>
+      <span class="route-line"></span>
+      <span class="route-dot" style="background:#e74c3c"></span>
+      <strong>长沙南</strong>
+      <span class="route-time">🚄 高铁 3-4h</span>
+      <span class="route-badge" style="background:#fbe4e0;color:#c62828">5/2 傍晚到家</span>
+    </div>
+  </div>
+</div>
+
+<!-- Transport comparison -->
+<div class="compare-box">
+  <h4>🚆 交通方案对比（长沙 ⇄ 郑州）</h4>
+  <div class="compare-grid">
+    <div class="old">✈️ 飞机：飞行1h40m，但市区↔机场2h + 提前2h值机 ≈ 全程5-6h，五一机票贵且班次少</div>
+    <div class="new">🚄 高铁：3-4h 点到点，二等座 ¥393.5 稳定，郑州东站与「次日去方城」无缝衔接 —— <strong>推荐全程高铁</strong></div>
+  </div>
+</div>
+
+<!-- Budget -->
+<div class="budget-box">
+  <h3>💰 预算参考（单人，不含份子钱）</h3>
+  <table class="budget-table">
+    <tr><th>项目</th><th>明细</th><th class="amount">费用</th></tr>
+    <tr><td>🚄 往返高铁</td><td>长沙南↔郑州东 ¥393.5×2 + 郑州东↔方城 ¥~120×2</td><td class="amount">¥1,027</td></tr>
+    <tr><td>🏨 住宿2晚</td><td>郑州（五一高峰）¥250-400 + 方城 ¥200-350</td><td class="amount">¥450-750</td></tr>
+    <tr><td>🚕 当地交通</td><td>郑州地铁/打车 + 方城站接送</td><td class="amount">¥100-200</td></tr>
+    <tr><td>🍽️ 餐饮</td><td>3午餐 + 2晚餐 + 早餐零食</td><td class="amount">¥250-400</td></tr>
+    <tr><td>🎫 景点门票</td><td>河南博物院免费（预约）；去七峰山/七十二潭另 +¥60-80</td><td class="amount">¥0-80</td></tr>
+    <tr><td><strong>合计</strong></td><td>（不含份子钱）</td><td class="amount"><strong>¥1,850-2,460</strong></td></tr>
+  </table>
+  <p style="font-size:.85em;color:var(--muted);margin-top:10px;">🧧 份子钱另计：一般关系 ¥600-800，挚友 ¥1,000-2,000，视关系与当地行情定。</p>
+</div>
+
+<!-- Tips -->
+<div class="tips">
+  <h3>📋 出行小贴士</h3>
+  <ul>
+    <li><strong>抢票时间轴：</strong>4/30 去程票约 4/15 开售，5/2 返程票约 4/17 开售。五一高峰热门班次秒空，开好闹钟 + 12306「候补」双保险。<strong>返程方城站车次少，联程票要提前规划</strong></li>
+    <li class="warn"><strong>请假提醒：</strong>4/30（周五）很可能在官方调休里是工作日，需提前请假 1 天。2027年五一放假安排预计 2026 年底公布；5/1 恰逢周六，大概率 5/1-5/5 放假。若只放 3 天，这个行程正合适</li>
+    <li><strong>河南博物院预约：</strong>免费但需实名预约，微信「河南博物院」小程序，提前5天每日17:00放票。五一白天票秒光是常态——没抢到就抢当日延时场（16:00放票，延时至20:30），或先逛免预约特展。谨防第三方「门票+讲解」黄牛，官方从未授权</li>
+    <li><strong>婚礼三问：</strong>① 午宴还是晚宴、几点开席？② 有没有需要帮忙/提前到的安排？③ 县城还是乡下办？—— 直接问新人，比猜靠谱</li>
+    <li><strong>份子钱：</strong>河南一般 600-800 起步，挚友 1000-2000。准备好现金 + 微信红包两手，避免现场手忙脚乱</li>
+    <li><strong>方城接送：</strong>方城站→县城约20-30分钟。五一假期网约车能叫到，但提前让新人安排接站最省心</li>
+    <li><strong>住哪里：</strong>郑州住郑州东站附近（次早赶车方便，出站即酒店）；方城住婚礼场地附近或县城中心</li>
+    <li><strong>天气：</strong>4月底5月初郑州/方城 15-28°C，白天暖、早晚凉，带件薄外套；五一前后偶有春雨，备把折叠伞</li>
+    <li><strong>吃点什么：</strong>郑州——萧记烩面、方中山胡辣汤、葛记焖饼；方城——「中国烩面之乡」的方城羊肉烩面、博望锅盔。伴手礼可带河南特产（花生糕、牡丹饼）回长沙</li>
+    <li class="warn"><strong>如果婚宴是晚宴 / 想多玩方城：</strong>可以把 5/2 返程推迟到 5/3，多出一天逛七峰山或七十二潭，行程立刻宽裕不少</li>
+  </ul>
+</div>
+
+</div>
+</body>
+</html>
