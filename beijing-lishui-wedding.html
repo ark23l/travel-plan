@@ -601,6 +601,7 @@ function reminderBadgeHTML(leadDays) {
 </script>
 
 <!-- ====== 渲染逻辑 ====== -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 (function () {
   var trip = JSON.parse(document.getElementById('trip-data').textContent);
@@ -695,10 +696,18 @@ function reminderBadgeHTML(leadDays) {
       points.push({ lat: s.lat, lng: s.lng, name: s.name, time: s.time, hot: /婚礼|晚宴/.test(s.name) });
     });
   });
-  initTravelMap('map', points);
+  if (typeof L !== 'undefined') {
+    initTravelMap('map', points);
+  } else {
+    var m = document.getElementById('map');
+    m.style.display = 'flex';
+    m.style.alignItems = 'center';
+    m.style.justifyContent = 'center';
+    m.style.color = '#7a8b84';
+    m.textContent = '⚠️ 地图组件未能加载（需要联网），文字行程仍可正常查看';
+  }
 })();
 </script>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </body>
 </html>
