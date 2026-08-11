@@ -13,6 +13,7 @@
     --pine: #2d6a4f;
     --ocean: #0ea5e9;
     --wed: #b03a2e;
+    --flash: #1b7a6c;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -42,6 +43,7 @@
   .trip-card.mountain { border-left-color: var(--pine); }
   .trip-card.beach { border-left-color: var(--ocean); }
   .trip-card.wedding { border-left-color: var(--wed); }
+  .trip-card.flash { border-left-color: var(--flash); }
   .trip-card .emoji { font-size: 2.8em; flex-shrink: 0; }
   .trip-card h3 { font-size: 1.15em; font-weight: 700; margin-bottom: 4px; }
   .trip-card .meta { font-size: .85em; color: var(--muted); }
@@ -60,6 +62,15 @@
 <div class="container">
   <h1>🗺️ 旅行计划</h1>
   <p class="sub">点击查看详细行程</p>
+
+  <a href="beijing-lishui-wedding.html" class="trip-card flash">
+    <span class="emoji">🚄</span>
+    <div>
+      <h3>北京 → 丽水 婚礼快闪 · 2天1晚</h3>
+      <span class="meta">📅 2026年8月18-19日 · 高铁南下赴婚宴，经温州飞回</span>
+    </div>
+    <span class="arrow">→</span>
+  </a>
 
   <a href="fangcheng.html" class="trip-card wedding">
     <span class="emoji">💒</span>
