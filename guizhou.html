@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>贵州觅食 5 天 · 长沙→贵阳→安顺→遵义</title>
+<meta name="description" content="2026 国庆 5 天 4 晚贵州纯美食行程：贵阳老城、安顺小吃、遵义羊肉粉，含交互地图、每日时间轴与出发前订票清单。">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+  :root {
+    --bg: #150f0d;
+    --bg-2: #1d1512;
+    --card: #241a15;
+    --card-2: #2e211a;
+    --text: #f7ede4;
+    --dim: #b6a294;
+    --faint: #8a7669;
+    --accent: #ff6a2b;        /* 酸汤橙 */
+    --accent-soft: rgba(255, 106, 43, .14);
+    --herb: #9ccf6b;          /* 木姜子绿 */
+    --chili: #e0402f;         /* 糟辣椒红 */
+    --gold: #f0b23c;
+    --border: rgba(255, 170, 120, .16);
+    --border-2: rgba(255, 170, 120, .28);
+    --shadow: 0 18px 40px -22px rgba(0, 0, 0, .9);
+    --serif: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", "SimSun", Georgia, serif;
+    --sans: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(900px 520px at 12% -6%, rgba(255, 106, 43, .16), transparent 62%),
+      radial-gradient(760px 460px at 96% 6%, rgba(156, 207, 107, .10), transparent 60%),
+      radial-gradient(680px 520px at 50% 108%, rgba(224, 64, 47, .12), transparent 60%);
+    background-attachment: fixed;
+    line-height: 1.62;
+    padding-bottom: 60px;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent); color: #1a1008; }
+
+  /* ——— 顶部 ——— */
+  .hero {
+    position: relative;
+    padding: 54px 22px 34px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.028) 0 1px, transparent 1px 7px);
+    pointer-events: none;
+  }
+  .route-dash {
+    font-size: clamp(.66em, 2.9vw, .78em); letter-spacing: .3em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 16px; font-weight: 600;
+    text-indent: .3em; max-width: 100%;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.05em, 8.4vw, 3.35em);
+    font-weight: 700;
+    letter-spacing: .06em;
+    line-height: 1.16;
+    margin-bottom: 10px;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .sub { color: var(--dim); font-size: .92em; max-width: 620px; margin: 0 auto; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px; }
+  .tag {
+    display: inline-block; font-size: .76em; padding: 5px 12px; border-radius: 999px;
+    background: rgba(255, 255, 255, .05); border: 1px solid var(--border); color: var(--dim);
+  }
+  .tag.hot { background: var(--accent-soft); border-color: rgba(255, 106, 43, .5); color: #ffc19a; font-weight: 600; }
+  .tag.herb { background: rgba(156, 207, 107, .12); border-color: rgba(156, 207, 107, .42); color: #cbe8a6; }
+
+  .wrap { max-width: 480px; margin: 0 auto; padding: 22px 16px 0; }
+
+  .stat-strip {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 18px;
+  }
+  .stat {
+    background: linear-gradient(160deg, var(--card-2), var(--card));
+    border: 1px solid var(--border); border-radius: 16px; padding: 13px 16px;
+  }
+  .stat .big { font-family: var(--serif); font-size: 1.16em; font-weight: 700; letter-spacing: .02em; }
+  .stat .lbl { font-size: .74em; color: var(--faint); margin-top: 2px; }
+
+  .card {
+    background: linear-gradient(170deg, rgba(46, 33, 26, .92), rgba(32, 23, 19, .92));
+    border: 1px solid var(--border); border-radius: 20px;
+    padding: 20px 18px; margin-bottom: 18px; box-shadow: var(--shadow);
+  }
+  .card > h2 {
+    font-family: var(--serif); font-size: 1.16em; font-weight: 700; letter-spacing: .03em;
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .h-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border-2), transparent); }
+
+  /* ——— 待办清单 ——— */
+  .pretrip-todo { list-style: none; display: grid; gap: 8px; }
+  .todo-item {
+    display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+    font-size: .87em; padding: 9px 12px; border-radius: 12px;
+    background: rgba(255, 255, 255, .035); border: 1px solid var(--border);
+  }
+  .todo-item input { accent-color: var(--accent); transform: translateY(1px); }
+  .todo-deadline {
+    font-family: var(--serif); font-weight: 700; color: var(--gold); font-size: .95em; white-space: nowrap;
+  }
+  .todo-text { color: var(--dim); }
+  .todo-soon .todo-deadline { color: var(--chili); }
+
+  /* ——— 行前须知 ——— */
+  .pretrip-grid { display: grid; gap: 10px; }
+  .pretrip-item {
+    font-size: .85em; color: var(--dim); padding: 12px 14px; border-radius: 14px;
+    background: rgba(255, 255, 255, .035); border: 1px solid var(--border);
+  }
+  .pretrip-item b { display: block; color: var(--text); font-size: 1.02em; margin-bottom: 4px; }
+  .pretrip-item.weather { background: var(--accent-soft); border-color: rgba(255, 106, 43, .34); }
+  .pretrip-item.apps span {
+    display: inline-block; margin: 4px 6px 0 0; padding: 3px 9px; border-radius: 999px;
+    background: rgba(156, 207, 107, .12); border: 1px solid rgba(156, 207, 107, .34); color: #cde8ab; font-size: .94em;
+  }
+
+  /* ——— 高铁票券 ——— */
+  .ticket-grid { display: grid; gap: 12px; }
+  .ticket {
+    position: relative; border-radius: 16px; padding: 14px 16px;
+    background: rgba(255, 255, 255, .035); border: 1px dashed var(--border-2);
+  }
+  .ticket.reco { background: var(--accent-soft); border-style: solid; border-color: rgba(255, 106, 43, .45); }
+  .ticket.done { background: rgba(156, 207, 107, .1); border-style: solid; border-color: rgba(156, 207, 107, .45); }
+  .t-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .t-head .code { font-family: var(--serif); font-weight: 700; color: var(--accent); letter-spacing: .04em; }
+  .ticket.done .t-head .code { color: var(--herb); }
+  .t-time { font-family: var(--serif); font-size: 1.24em; font-weight: 700; letter-spacing: .03em; margin-top: 6px; }
+  .t-note { font-size: .79em; color: var(--dim); margin-top: 3px; }
+  .t-badge {
+    position: absolute; top: -9px; right: 14px; font-size: .68em; font-weight: 700;
+    background: var(--accent); color: #1a1008; padding: 2px 9px; border-radius: 999px;
+  }
+  .ticket.done .t-badge { background: var(--herb); }
+
+  /* ——— 酒店 ——— */
+  .hotel-area { margin-bottom: 18px; }
+  .hotel-area:last-child { margin-bottom: 0; }
+  .hotel-area h3 { font-family: var(--serif); font-size: 1.02em; margin-bottom: 4px; }
+  .hotel-area .reason { font-size: .8em; color: var(--dim); margin-bottom: 10px; }
+  .hotel-opts { display: grid; gap: 8px; }
+  .hotel-opt {
+    display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; align-items: center;
+    padding: 10px 12px; border-radius: 13px; background: rgba(255, 255, 255, .035); border: 1px solid var(--border);
+  }
+  .hotel-opt .name { font-size: .93em; font-weight: 600; }
+  .hotel-opt .price { font-size: .84em; color: var(--gold); grid-column: 2; }
+  .hotel-opt .note { font-size: .78em; color: var(--faint); grid-column: 2; }
+  .tier {
+    font-size: .68em; padding: 3px 8px; border-radius: 999px; white-space: nowrap; font-weight: 700;
+    border: 1px solid var(--border-2); color: var(--dim);
+  }
+  .tier.econ { color: #cbe8a6; border-color: rgba(156, 207, 107, .5); background: rgba(156, 207, 107, .1); }
+  .tier.mid { color: #ffc19a; border-color: rgba(255, 106, 43, .5); background: var(--accent-soft); }
+  .tier.hi { color: #ffe0a3; border-color: rgba(240, 178, 60, .5); background: rgba(240, 178, 60, .12); }
+
+  /* ——— 免责 ——— */
+  .disclaimer {
+    font-size: .75em; color: var(--faint); line-height: 1.6;
+    border: 1px solid rgba(240, 178, 60, .3); background: rgba(240, 178, 60, .07);
+    border-radius: 14px; padding: 12px 14px; margin-bottom: 18px;
+  }
+  .source-note { font-size: .72em; color: var(--faint); margin-top: 10px; }
+
+  /* ——— 地图 ——— */
+  #map {
+    height: 340px; border-radius: 16px; border: 1px solid var(--border);
+    background: #201814; z-index: 1;
+  }
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: #241a15; color: var(--text); }
+  .leaflet-popup-content a { color: var(--accent); }
+  .leaflet-container { font-family: var(--sans); font-size: .84em; }
+  .route-pin {
+    background: var(--accent); color: #1a1008; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .8em; border: 2px solid rgba(255, 240, 230, .9);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .5);
+  }
+  .map-foot { font-size: .74em; color: var(--faint); margin-top: 9px; text-align: center; }
+
+  /* ——— 每日 ——— */
+  .day-head { display: flex; align-items: center; gap: 13px; margin-bottom: 14px; }
+  .day-num {
+    font-family: var(--serif); font-size: 1.5em; font-weight: 700; color: var(--accent);
+    width: 46px; height: 46px; flex: 0 0 46px; border-radius: 14px;
+    background: var(--accent-soft); border: 1px solid rgba(255, 106, 43, .42);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .day-head h3 { font-family: var(--serif); font-size: 1.04em; letter-spacing: .02em; }
+  .day-theme { font-size: .8em; color: var(--herb); }
+  .day-tips { display: grid; gap: 6px; margin-bottom: 14px; }
+  .day-tips span {
+    font-size: .79em; color: var(--dim); padding: 8px 11px; border-radius: 11px;
+    background: rgba(156, 207, 107, .08); border-left: 3px solid rgba(156, 207, 107, .55);
+  }
+  .timeline { position: relative; padding-left: 20px; display: grid; gap: 12px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px;
+    background: linear-gradient(180deg, rgba(255, 106, 43, .5), rgba(255, 106, 43, .05));
+  }
+  .slot {
+    position: relative; padding: 12px 13px; border-radius: 14px;
+    background: rgba(255, 255, 255, .035); border: 1px solid var(--border);
+  }
+  .slot::before {
+    content: ""; position: absolute; left: -19px; top: 17px; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(255, 106, 43, .16);
+  }
+  .slot.eat::before { background: var(--chili); box-shadow: 0 0 0 3px rgba(224, 64, 47, .18); }
+  .slot.move::before { background: var(--herb); box-shadow: 0 0 0 3px rgba(156, 207, 107, .16); }
+  .per {
+    font-size: .68em; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+    background: rgba(255, 255, 255, .07); color: var(--dim); border: 1px solid var(--border);
+  }
+  .s-time { font-size: .76em; color: var(--gold); margin-left: 6px; font-family: var(--serif); }
+  .s-name { font-size: 1.02em; font-weight: 700; margin-top: 7px; letter-spacing: .01em; }
+  .s-review { font-size: .81em; color: var(--dim); margin-top: 3px; }
+  .s-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+  .s-meta span {
+    font-size: .72em; color: var(--dim); padding: 3px 9px; border-radius: 999px;
+    background: rgba(255, 255, 255, .05); border: 1px solid var(--border);
+  }
+  .reminder-badge {
+    display: inline-block; font-size: .68em; margin-left: 8px; padding: 2px 9px; border-radius: 999px;
+    background: rgba(240, 178, 60, .16); border: 1px solid rgba(240, 178, 60, .48); color: #ffdc9a; font-weight: 600;
+  }
+  .photo {
+    position: relative; margin-top: 11px; border-radius: 12px; overflow: hidden;
+    aspect-ratio: 16 / 9; background: linear-gradient(135deg, #3a2a22, #231a15);
+  }
+  .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo .ph {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: .84em; color: var(--faint); letter-spacing: .08em; text-align: center; padding: 0 14px;
+  }
+  .alts { display: grid; gap: 8px; margin-top: 14px; }
+  .alt {
+    font-size: .82em; padding: 11px 13px; border-radius: 13px;
+    background: rgba(224, 64, 47, .08); border: 1px dashed rgba(224, 64, 47, .42);
+  }
+  .alt b { color: #ffb0a4; }
+
+  /* ——— 餐饮（本行程主角）——— */
+  .dining-head {
+    font-family: var(--serif); font-size: 1.02em; margin: 20px 0 11px;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .dining { display: grid; gap: 10px; }
+  .meal-card {
+    position: relative; border-radius: 16px; padding: 13px 15px 14px;
+    background: linear-gradient(150deg, rgba(255, 106, 43, .16), rgba(224, 64, 47, .07));
+    border: 1px solid rgba(255, 106, 43, .34);
+  }
+  .meal-card .meal { font-size: .89em; font-weight: 700; letter-spacing: .02em; }
+  .meal-card .meal .hours { font-weight: 400; font-size: .84em; color: var(--faint); }
+  .dish { font-size: .84em; color: var(--dim); margin-top: 6px; display: flex; justify-content: space-between; gap: 10px; }
+  .dish .price { color: var(--gold); font-family: var(--serif); white-space: nowrap; }
+  .meal-card .tip { margin-top: 9px; font-size: .77em; color: #ffc7a8; }
+
+  /* ——— 招牌菜速查 ——— */
+  .dish-index { display: grid; gap: 12px; }
+  .di-city { border: 1px solid var(--border); border-radius: 15px; padding: 13px 15px; background: rgba(255, 255, 255, .03); }
+  .di-city h3 { font-family: var(--serif); font-size: 1em; margin-bottom: 8px; color: var(--accent); }
+  .di-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .di-list span {
+    font-size: .78em; padding: 4px 11px; border-radius: 999px;
+    background: rgba(240, 178, 60, .09); border: 1px solid rgba(240, 178, 60, .28); color: #ffdfae;
+  }
+
+  .tips-list { list-style: none; display: grid; gap: 8px; }
+  .tips-list li {
+    font-size: .84em; color: var(--dim); padding-left: 22px; position: relative;
+  }
+  .tips-list li::before { content: "▸"; position: absolute; left: 6px; color: var(--accent); }
+
+  .footer-note { text-align: center; font-size: .74em; color: var(--faint); margin: 26px 0 10px; }
+
+  /* ——— 桌面端 ——— */
+  @media (min-width: 768px) {
+    .wrap { max-width: 940px; padding: 30px 26px 0; }
+    .hero { padding: 66px 26px 42px; }
+    .stat-strip { grid-template-columns: repeat(4, 1fr); }
+    .card { padding: 26px 26px; border-radius: 24px; margin-bottom: 22px; }
+    .pretrip-grid { grid-template-columns: repeat(2, 1fr); }
+    .pretrip-item.weather { grid-column: 1 / -1; }
+    .pretrip-todo { grid-template-columns: repeat(2, 1fr); }
+    .ticket-grid { grid-template-columns: repeat(2, 1fr); }
+    .dining { grid-template-columns: repeat(2, 1fr); }
+    .hotel-opts { grid-template-columns: repeat(3, 1fr); }
+    #map { height: 460px; }
+    .dish-index { grid-template-columns: repeat(3, 1fr); }
+    .alts { grid-template-columns: repeat(2, 1fr); }
+    .timeline { padding-left: 26px; }
+    .slot::before { left: -25px; }
+    .slot .photo { max-width: 470px; }
+  }
+  @media (min-width: 1100px) {
+    .wrap { max-width: 1000px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="route-dash">长沙 → 贵阳 → 安顺 → 遵义</div>
+  <h1>贵州觅食 <em>5 天</em></h1>
+  <p class="sub">10·3 夜奔贵阳 · 10·7 返程｜不吃景点，只吃街头：酸汤、肠旺、裹卷、羊肉粉</p>
+  <div class="tag-row">
+    <span class="tag hot">🍜 纯吃行程</span>
+    <span class="tag">🚄 全程高铁</span>
+    <span class="tag herb">🏙️ 贵阳 · 安顺 · 遵义</span>
+    <span class="tag">📅 2026/10/03–10/07</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="stat-strip">
+    <div class="stat"><div class="big">5 天 4 晚</div><div class="lbl">10/3 晚到 · 10/7 返</div></div>
+    <div class="stat"><div class="big">3 座城</div><div class="lbl">贵阳 · 安顺 · 遵义</div></div>
+    <div class="stat"><div class="big">2 趟城际</div><div class="lbl">高铁均在 1 小时内</div></div>
+    <div class="stat"><div class="big">住贵阳 4 晚</div><div class="lbl">安顺/遵义当日往返不挪窝</div></div>
+  </div>
+
+  <div class="card">
+    <h2>📋 出发前待办 <span class="h-rule"></span></h2>
+    <div id="pretrip-todo"></div>
+  </div>
+
+  <div class="card">
+    <h2>🌦️ 行前须知 <span class="h-rule"></span></h2>
+    <div class="pretrip-grid" id="pretrip-grid"></div>
+  </div>
+
+  <div class="card">
+    <h2>🚄 往返与城际高铁 <span class="h-rule"></span></h2>
+    <div class="ticket-grid" id="flight-grid"></div>
+    <p class="source-note" id="train-note"></p>
+  </div>
+
+  <div class="card">
+    <h2>🏨 住宿 · 片区与价位 <span class="h-rule"></span></h2>
+    <div id="hotel-grid"></div>
+  </div>
+
+  <div class="disclaimer" id="disclaimer">⚠️ 本页全部信息（天气、高铁车次、酒店、餐厅、菜品价格、营业时间、门票等）均为 AI 基于公开资料整理的参考建议，可能不准确或已过时，不保证与实时情况一致；出行前请在 12306、地图 App、商户官方渠道等核实后再预订与前往。本页不标注商户评分与实时票价 / 房价，请以大众点评、高德等平台的实时数据为准。文中图片取自维基共享资源，为景点 / 菜式示意照片，并非对应商户实拍。</div>
+
+  <div class="card">
+    <h2>🗺️ 全程路线 <span class="h-rule"></span></h2>
+    <div id="map"></div>
+    <div class="map-foot">点击圆点可跳转手机地图导航 · 地图与照片需联网，离线时文字行程仍可读</div>
+  </div>
+
+  <div class="card">
+    <h2>🍽️ 招牌菜速查 <span class="h-rule"></span></h2>
+    <div class="dish-index" id="dish-index"></div>
+  </div>
+
+  <div id="days-wrap"></div>
+
+  <div class="card">
+    <h2>💡 全程贴士 <span class="h-rule"></span></h2>
+    <ul class="tips-list" id="tips-list"></ul>
+  </div>
+
+  <p class="footer-note">吃不完就下次再来 · 贵州，5 天只是个开头</p>
+</div>
+
+<!-- ====== 引擎：map.js（内联，浏览器 + Node 双用） ====== -->
+<script>
+function escapeHTML(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+function buildNavLink(lat, lng, label, ua) {
+  if (ua && /iPhone|iPad|iPod/.test(ua)) {
+    return 'https://maps.apple.com/?ll=' + lat + ',' + lng + '&q=' + encodeURIComponent(label);
+  }
+  return 'geo:' + lat + ',' + lng + '?q=' + lat + ',' + lng + '(' + encodeURIComponent(label) + ')';
+}
+function buildMapAppLinks(lat, lng, label) {
+  var amap = {
+    label: '高德地图',
+    url: 'https://uri.amap.com/marker?position=' + lng + ',' + lat
+      + '&name=' + encodeURIComponent(label)
+      + '&coordinate=wgs84&callnative=1&src=travel-plan-viz',
+  };
+  var google = {
+    label: 'Google 地图',
+    url: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(lat + ',' + lng),
+  };
+  return isInChinaBBox(lat, lng) ? [amap] : [google, amap];
+}
+var GCJ_A = 6378245.0;
+var GCJ_EE = 0.00669342162296594323;
+function isInChinaBBox(lat, lng) {
+  return lng >= 72.004 && lng <= 137.8347 && lat >= 0.8293 && lat <= 55.8271;
+}
+function gcjTransformLat(x, y) {
+  var ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));
+  ret += (20.0 * Math.sin(6.0 * x * Math.PI) + 20.0 * Math.sin(2.0 * x * Math.PI)) * 2.0 / 3.0;
+  ret += (20.0 * Math.sin(y * Math.PI) + 40.0 * Math.sin(y / 3.0 * Math.PI)) * 2.0 / 3.0;
+  ret += (160.0 * Math.sin(y / 12.0 * Math.PI) + 320.0 * Math.sin(y * Math.PI / 30.0)) * 2.0 / 3.0;
+  return ret;
+}
+function gcjTransformLng(x, y) {
+  var ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));
+  ret += (20.0 * Math.sin(6.0 * x * Math.PI) + 20.0 * Math.sin(2.0 * x * Math.PI)) * 2.0 / 3.0;
+  ret += (20.0 * Math.sin(x * Math.PI) + 40.0 * Math.sin(x / 3.0 * Math.PI)) * 2.0 / 3.0;
+  ret += (150.0 * Math.sin(x / 12.0 * Math.PI) + 300.0 * Math.sin(x / 30.0 * Math.PI)) * 2.0 / 3.0;
+  return ret;
+}
+function gcj02ToWgs84(lat, lng) {
+  if (!isInChinaBBox(lat, lng)) return { lat: lat, lng: lng };
+  var dLat = gcjTransformLat(lng - 105.0, lat - 35.0);
+  var dLng = gcjTransformLng(lng - 105.0, lat - 35.0);
+  var radLat = lat / 180.0 * Math.PI;
+  var magic = Math.sin(radLat);
+  magic = 1 - GCJ_EE * magic * magic;
+  var sqrtMagic = Math.sqrt(magic);
+  dLat = (dLat * 180.0) / ((GCJ_A * (1 - GCJ_EE)) / (magic * sqrtMagic) * Math.PI);
+  dLng = (dLng * 180.0) / (GCJ_A / sqrtMagic * Math.cos(radLat) * Math.PI);
+  return { lat: lat - dLat, lng: lng - dLng };
+}
+function routeCoordinates(points) {
+  return points.map(function (p) { return [p.lat, p.lng]; });
+}
+function initTravelMap(elementId, points, opts) {
+  opts = opts || {};
+  var map = L.map(elementId);
+  L.tileLayer(opts.tileUrl || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: opts.attribution || '© OpenStreetMap contributors',
+    maxZoom: 19,
+  }).addTo(map);
+
+  var ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
+  points.forEach(function (p, i) {
+    var icon = L.divIcon({
+      className: 'route-pin',
+      html: '<span class="route-pin__num">' + (i + 1) + '</span>',
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+    });
+    var navLinks = [{ label: '导航', url: buildNavLink(p.lat, p.lng, p.name, ua) }]
+      .concat(buildMapAppLinks(p.lat, p.lng, p.name));
+    L.marker([p.lat, p.lng], { icon: icon }).addTo(map).bindPopup(
+      '<b>' + (i + 1) + '. ' + escapeHTML(p.name) + '</b><br>'
+      + (p.time ? escapeHTML(p.time) + '<br>' : '')
+      + navLinks.map(function (l) {
+          return '<a href="' + l.url + '">' + escapeHTML(l.label) + '</a>';
+        }).join(' · ')
+    );
+  });
+
+  var coords = routeCoordinates(points);
+  if (coords.length > 1) {
+    L.polyline(coords, { dashArray: '6 8', weight: 2 }).addTo(map);
+  }
+  map.fitBounds(coords.length ? coords : [[0, 0]], { padding: [30, 30] });
+  return map;
+}
+</script>
+
+<!-- ====== 引擎：reminders.js（内联） ====== -->
+<script>
+function computeReminders(startDateISO, items) {
+  return items
+    .map(function (it) {
+      var d = new Date(startDateISO + 'T00:00:00Z');
+      d.setUTCDate(d.getUTCDate() - it.leadDays);
+      return { item: it.item, leadDays: it.leadDays, deadline: d.toISOString().slice(0, 10) };
+    })
+    .sort(function (a, b) {
+      return a.deadline < b.deadline ? -1 : a.deadline > b.deadline ? 1 : 0;
+    });
+}
+function escHTML(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+function renderChecklistHTML(list) {
+  var today = new Date().toISOString().slice(0, 10);
+  var lis = list.map(function (r) {
+    var soon = r.deadline <= today ? ' todo-soon' : '';
+    return '<li class="todo-item' + soon + '">'
+      + '<input type="checkbox"> '
+      + '<span class="todo-deadline">' + r.deadline + '前</span> '
+      + '<span class="todo-text">' + escHTML(r.item) + '（建议提前' + r.leadDays + '天）</span>'
+      + '</li>';
+  }).join('');
+  return '<ul class="pretrip-todo">' + lis + '</ul>';
+}
+function reminderBadgeHTML(leadDays) {
+  return '<span class="reminder-badge">⚠️ 建议提前' + leadDays + '天订</span>';
+}
+</script>
+
+<!-- ====== 行程数据（迭代修改就改这里） ====== -->
+<script id="trip-data" type="application/json">
+{
+  "title": "贵州觅食 5 天 · 长沙 → 贵阳 → 安顺 → 遵义",
+  "startDate": "2026-10-03",
+  "colorScheme": "酸汤夜色：炭黑底 + 酸汤橙 + 木姜子绿 + 糟辣椒红",
+  "trainNote": "车次与票价为 2026 年 9 月中旬现行运行图整理，国庆期间铁路通常会加开临客，请以 12306 当日查询为准。12306 起售时间：长沙南 14:30、贵阳北 / 贵阳东 10:00、安顺西 15:30、遵义 13:30（App 内「起售时间」可查）。本页不含实时余票与实时票价。",
+  "preTrip": {
+    "weather": {
+      "summary": "10 月上旬常年：贵阳 18–21℃ / 12–14℃，安顺 17–20℃ / 12–14℃，遵义 22–23℃ / 17–18℃；昼夜温差 5–6℃，湿度常年 77% 以上，贵阳年平均阴天 235 天",
+      "typhoon": "贵州 10 月正处「华西秋雨」核心区，以绵绵细雨为主、雨量小但持续时间长，安顺（贵州西部）与遵义（贵州北部）连阴雨概率高于贵阳城区；出门常备折叠伞，别指望晒干的衣服会干。"
+    },
+    "packing": "防风防水软壳 / 冲锋衣外壳 + 一件薄抓绒或针织开衫（早晚加、中午脱）；速干内搭，别穿厚纯棉卫衣；防水防滑运动鞋 + 一双备用鞋；折叠伞和轻便雨衣都带。贵州菜酸辣重油，带肠胃药。",
+    "payment": "微信 / 支付宝在贵阳、安顺、遵义市区全面通行（含小摊、连锁店、门票）；仍建议备 200–500 元零钞——古镇家庭作坊、乡镇集市、部分老字号只收现金或个人码，山区信号弱时扫码会失败。",
+    "apps": [
+      "铁路12306（唯一官方售票 + 候补）",
+      "高德地图（提前下贵州离线包）",
+      "大众点评 / 美团（找店看营业时间）",
+      "一码游贵州（贵州门票预约总入口）",
+      "安旅通（黄果树唯一官方预约渠道）"
+    ],
+    "ticketTip": "火车票 15 天预售：去程 10/3 的票在 9 月 19 日 14:30（长沙南起售）开，返程 10/7 的票在 9 月 23 日 10:00（贵阳北 / 贵阳东起售）开。起售前先用 12306「购票信息预填」填好乘车人与车次，开售瞬间一键提交；没抢到立刻挂候补（最多 6 单、可选 3 个乘车日期、合计不超 60 个「日期 + 车次」组合），并勾选「接受新增列车」。"
+  },
+  "flights": {
+    "booked": [],
+    "candidates": [
+      {
+        "label": "去程 · 长沙南 → 贵阳北",
+        "code": "G1391",
+        "time": "17:05 → 20:21",
+        "note": "沪昆高铁 · 3h16m · 二等座约 ¥314.5｜首选：票价最低、到得早，落地当晚就赶得上夜宵"
+      },
+      {
+        "label": "去程备选 · 长沙南 → 贵阳北",
+        "code": "G1331",
+        "time": "19:46 → 22:54",
+        "note": "沪昆高铁 · 3h08m · 二等座约 ¥358｜想保住长沙一个白天就坐这班，1 号线贵阳北站末班 23:24，务必 23:05 前上车"
+      },
+      {
+        "label": "返程 · 贵阳北 → 长沙南",
+        "code": "G1374",
+        "time": "14:18 → 17:12",
+        "note": "沪昆高铁 · 2h54m · 二等座约 ¥314.5｜下午性价比最高，17:12 就到长沙"
+      },
+      {
+        "label": "返程备选 · 贵阳东 → 长沙南",
+        "code": "G242",
+        "time": "09:58 → 12:48",
+        "note": "沪昆高铁 · 2h50m · 二等座约 ¥311｜全程最快；注意始发是贵阳东，无地铁直达，要多留 30–40 分钟"
+      },
+      {
+        "label": "返程备选 · 贵阳东 → 长沙南",
+        "code": "G2308",
+        "time": "09:12 → 12:38",
+        "note": "沪昆高铁 · 3h26m · 二等座约 ¥308｜票价最低的返程班次"
+      }
+    ]
+  },
+  "hotelAreas": [
+    {
+      "area": "贵阳老城 · 喷水池 / 大十字（主推，连住 4 晚）",
+      "reason": "蔡家街、民生路、正新街、护国路、曹状元街全在这一圈，基本靠走的就能吃；喷水池是 1/2 号线换乘站，去贵阳北站 5 站约 12–15 分钟，去机场 2 号线直达。安顺 30 分钟、遵义 45 分钟，当天往返完全不必搬酒店。",
+      "options": [
+        {
+          "tier": "经济",
+          "name": "汉庭酒店（贵阳大十字民生路好吃街店）",
+          "priceRange": "约 ¥150–300 / 晚",
+          "note": "直接开在民生路好吃街上，出门就是但家香酥鸭、丁家脆哨，步行到喷水池站。"
+        },
+        {
+          "tier": "中档",
+          "name": "全季酒店（贵阳喷水池地铁站店）",
+          "priceRange": "约 ¥300–500 / 晚",
+          "note": "步行可达蔡家街 / 民生路 / 正新街；标准化连锁，适合连住 4 晚。"
+        },
+        {
+          "tier": "高端",
+          "name": "贵阳凯宾斯基大酒店（护国路 68 号）",
+          "priceRange": "约 ¥700–1300 / 晚",
+          "note": "紧邻甲秀楼，楼下就是护国路—民生路—蔡家街美食圈，夜宵后步行回房。"
+        }
+      ]
+    },
+    {
+      "area": "贵阳北站 / 观山湖（备选：晚到或想「退房即进站」）",
+      "reason": "只适合坐 20:04 之后的车到贵阳（地铁末班 23:24 赶不上）、或返程当天想零风险赶车的人。代价是去老城吃小吃每天往返 40–50 分钟，吃的是商场餐饮而不是老字号。",
+      "options": [
+        {
+          "tier": "经济",
+          "name": "全季酒店（贵阳北站店）",
+          "priceRange": "约 ¥300–500 / 晚",
+          "note": "观山湖区甲秀北路 235 号，1 号线贵阳北站 5 站直达喷水池。"
+        },
+        {
+          "tier": "中档",
+          "name": "贵阳北站希尔顿欢朋酒店",
+          "priceRange": "约 ¥400–650 / 晚",
+          "note": "含早餐；10/7 返程「退房即进站」的首选。"
+        },
+        {
+          "tier": "高端",
+          "name": "贵阳观山湖片区高端酒店（以官方渠道当日房价为准）",
+          "priceRange": "约 ¥700+ / 晚",
+          "note": "观山湖高端供给变动大，本次未核实具体门店，建议按「贵阳北站」关键词自行筛选。"
+        }
+      ]
+    },
+    {
+      "area": "安顺老城 · 顾府街 / 儒林路 / 虹山湖（若在安顺住一晚）",
+      "reason": "安顺出名的小吃（裹卷、破酥包、夺夺粉、剪粉、牛肉粉）都在顾府街—安顺古城这一圈，步行可达，旁边就是国贸与古城步行街。安顺无地铁，安顺西站到老城打车 20–30 分钟。",
+      "options": [
+        {
+          "tier": "经济",
+          "name": "汉庭酒店（安顺古城店）",
+          "priceRange": "约 ¥150–300 / 晚",
+          "note": "西秀区市府路；2025 年新店。⚠️ 名字带「古城」，实际距安顺古城街区约 1.7 km，打车 5 分钟。"
+        },
+        {
+          "tier": "中档",
+          "name": "维也纳国际酒店（安顺古城顾府街国贸店）",
+          "priceRange": "约 ¥300–550 / 晚",
+          "note": "门店就落在顾府街 + 国贸上，出门即小吃街核心。"
+        },
+        {
+          "tier": "高端",
+          "name": "安顺百灵希尔顿逸林酒店（虹山湖路 42 号）",
+          "priceRange": "约 ¥600–1100 / 晚",
+          "note": "面对虹山湖、背靠古城，步行约 0.7 km 到安顺文庙；距黄果树约 40 公里。"
+        }
+      ]
+    },
+    {
+      "area": "遵义老城 · 会址 / 捞沙巷 / 丁字口（若在遵义住一晚）",
+      "reason": "捞沙巷小吃街、遵义会议会址、红军街、丁字口老国贸连成一个步行圈。遵义无地铁，老城到遵义站打车 15–25 分钟；⚠️ 遵义市区没有五星级酒店，「高端」档实为本地 4 星 / 高档品牌。",
+      "options": [
+        {
+          "tier": "经济",
+          "name": "汉庭酒店（遵义会址丁字口店）",
+          "priceRange": "约 ¥150–300 / 晚",
+          "note": "红花岗区大兴路 273 号；官方描述即「毗邻遵义会议会址、捞沙巷美食一条街」——离吃的最准的一家。"
+        },
+        {
+          "tier": "中档",
+          "name": "维也纳酒店（遵义会址医学院店）",
+          "priceRange": "约 ¥300–500 / 晚",
+          "note": "「会址」定位，步行 / 短打车进捞沙巷—红军街圈。"
+        },
+        {
+          "tier": "高端",
+          "name": "遵义宾馆（红花岗区石龙路 3 号）",
+          "priceRange": "约 ¥400–800 / 晚",
+          "note": "遵义市文旅局星级公示为 4 星级；老城地标式接待型酒店。"
+        }
+      ]
+    }
+  ],
+  "disclaimer": "本页全部信息（天气、高铁车次、酒店、餐厅、菜品价格、营业时间、门票等）均为 AI 基于公开资料整理的参考建议，可能不准确或已过时，不保证与实时情况一致；出行前请在 12306、地图 App、商户官方渠道等核实后再预订与前往。本页不标注商户评分与实时票价 / 房价，请以大众点评、高德等平台的实时数据为准。文中图片取自维基共享资源，为景点 / 菜式示意照片，并非对应商户实拍。",
+  "tips": [
+    "老城吃街认准这 6 处：蔡家街（早餐）、民生路（伴手礼 + 香酥鸭）、正新街（小推车烟火地）、护国路、曹状元街（状元街区）、青云路（深夜食堂）。⚠️ 合群路夜市已衰败闭市，别去。",
+    "贵州早餐店多是「卖完即止」：肠旺面、羊肉粉、牛肉粉最好 10 点前到，晚到就只剩空锅。",
+    "贵州菜以酸辣为主，酸汤的酸是发酵酸不是醋酸；折耳根（鱼腥草）常作默认配菜和蘸水主料，不吃一定要提前说。",
+    "车站三坑：① 长沙南来的车多数终到贵阳北（有地铁），G1333 / G2166 等走贵阳东——贵阳东无地铁直达，要多留 30–40 分钟；② 去遵义别买成「遵义南站」（在播州区，离老城远）；③ 安顺的高铁站是「安顺西站」，离老城 8–12 公里。",
+    "贵阳地铁全线网 06:20–23:00（节假日通常延至 23:30）；贵阳北站 1 号线末班约 23:24。夜宵吃到 23 点后就打车回，出租车起步价白天 10 元 / 夜间 12 元。",
+    "国庆期间贵阳进入国内长线游热门目的地前列，热门馆子排队明显；尽量避开 12–13 点、18–20 点两个高峰，或错峰到 11 点 / 20:30 后。",
+    "住宿涨价有法定上限：贵州省规定同一经营者涨幅不得超过此前 30 日同类房型均价的 60%。遇到翻 2–3 倍的报价先怀疑是否合法，可打 12345 / 12315。",
+    "身份证全程随身带（景区、酒店、进站都要实名核验）；预约二维码提前截图存本地——山里和古镇信号不稳，现场加载会失败。",
+    "贵州多山路，出发前在高德 / 百度地图下载贵州离线地图包；古镇石板路雨天很滑，鞋底要防滑。"
+  ],
+  "reminders": [
+    {
+      "item": "去程高铁票 10/3（长沙南 14:30 起售，首选 G1391）",
+      "leadDays": 14
+    },
+    {
+      "item": "贵阳老城住宿 4 晚（喷水池 / 大十字，可免费取消优先）",
+      "leadDays": 16
+    },
+    {
+      "item": "贵阳 ↔ 安顺 / 贵阳 ↔ 遵义 城际车票（15 天预售）",
+      "leadDays": 12
+    },
+    {
+      "item": "返程高铁票 10/7（贵阳北 10:00 起售，全程最难抢的一张）",
+      "leadDays": 10
+    },
+    {
+      "item": "遵义会议会址免费预约（公众号 / 现场扫码，周一不闭馆）",
+      "leadDays": 3
+    },
+    {
+      "item": "若要去黄果树：微信「安旅通」预约门票 + 水帘洞分时（水帘洞每日限流 6000）",
+      "leadDays": 7
+    },
+    {
+      "item": "热门馆子订位（酸汤鱼 / 酸汤牛肉等，国庆要排队）",
+      "leadDays": 3
+    }
+  ],
+  "dishIndex": [
+    {
+      "city": "贵阳",
+      "dishes": [
+        "肠旺面",
+        "牛肉粉 / 花溪牛肉粉",
+        "丝娃娃",
+        "酸汤鱼",
+        "酸汤牛肉",
+        "恋爱豆腐果",
+        "烤脑花",
+        "洋芋粑",
+        "糯米饭",
+        "烙锅",
+        "豆腐圆子",
+        "冰浆",
+        "但家香酥鸭",
+        "脆哨"
+      ]
+    },
+    {
+      "city": "安顺",
+      "dishes": [
+        "裹卷",
+        "破酥包",
+        "夺夺粉",
+        "小锅凉粉",
+        "荞凉粉",
+        "安顺牛肉粉",
+        "镇宁波波糖",
+        "旧州鸡辣子",
+        "屯堡菜",
+        "油炸粑稀饭"
+      ]
+    },
+    {
+      "city": "遵义",
+      "dishes": [
+        "遵义羊肉粉",
+        "豆花面",
+        "乌江豆腐鱼",
+        "遵义鸡蛋糕",
+        "鸭溪凉粉",
+        "尚稽豆腐皮",
+        "酸鲊肉",
+        "米皮"
+      ]
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-10-03",
+      "weekday": "周六",
+      "theme": "夜奔贵阳 · 落地就开吃",
+      "tips": [
+        "首选 G1391（长沙南 17:05 → 贵阳北 20:21）：票价最低、到得早，21:00 前就能坐在夜市里。",
+        "只想保住长沙一个白天就坐 G1331（19:46 → 22:54）——这是「当晚还赶得上夜宵」的最后一班，1 号线贵阳北站末班 23:24。",
+        "若买到 20:04 之后的 G207 / G2413（23:15 / 23:55 到），地铁末班已过，直接打车到老城，或干脆第一晚住贵阳北站附近。"
+      ],
+      "slots": [
+        {
+          "period": "evening",
+          "kind": "move",
+          "name": "长沙南站",
+          "time": "17:05 发车",
+          "lat": 28.149872,
+          "lng": 113.059693,
+          "review": "沪昆高铁一路向西：长沙南 → 湘潭北 → 娄底南 → 怀化南 → 凯里南 → 贵阳北。",
+          "transport": {
+            "mode": "高铁 G1391",
+            "fare": "二等座约 ¥314.5",
+            "duration": "3h16m"
+          },
+          "needsBooking": true,
+          "leadDays": 14
+        },
+        {
+          "period": "night",
+          "kind": "move",
+          "name": "贵阳北站（观山湖区）",
+          "time": "20:21 到达",
+          "lat": 26.622835,
+          "lng": 106.672454,
+          "review": "高铁站与地铁 1 号线直连，出站进地铁；到喷水池 5 站、约 12–15 分钟。",
+          "transport": {
+            "mode": "地铁 1 号线",
+            "fare": "约 ¥3",
+            "duration": "12–15 分钟到喷水池"
+          },
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/North_Guiyang_Railway_Station_2015.10.7.jpg?width=900"
+        },
+        {
+          "period": "night",
+          "kind": "eat",
+          "name": "二七路小吃街（夜宵第一站）",
+          "time": "21:30–00:00",
+          "lat": 26.561,
+          "lng": 106.703566,
+          "review": "南明区解放路 100 号鸿通城西侧，离地铁 1 号线贵阳火车站约 700 米；2026 年焕新后有 121 个档口，官方说法是「即便到深夜 11 点，依旧人声鼎沸」。",
+          "openingHours": "约 17:00–次日 01:00（摊档陆续收）",
+          "transport": {
+            "mode": "地铁 1 号线 + 步行",
+            "fare": "约 ¥2–3",
+            "duration": "约 20 分钟"
+          },
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/%E8%B4%B5%E5%B7%9E%E7%83%99%E9%94%85.jpg?width=900"
+        }
+      ],
+      "dining": [
+        {
+          "meal": "夜宵",
+          "place": "二七路小吃街",
+          "hours": "约 17:00–次日 01:00",
+          "dishes": [
+            {
+              "name": "烤脑花",
+              "price": "¥15"
+            },
+            {
+              "name": "烙锅（按份）",
+              "price": "¥30–50"
+            },
+            {
+              "name": "糯米饭",
+              "price": "¥8"
+            },
+            {
+              "name": "肠旺面",
+              "price": "¥12"
+            },
+            {
+              "name": "冰浆（解辣神器）",
+              "price": "¥12"
+            }
+          ],
+          "tip": "落地超过 23:30 就直接打车去老城，找 24 小时粉店 / 烧烤兜底，别硬撑到二七路。"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "weekday": "周日",
+      "theme": "贵阳老城 · 一天吃八顿",
+      "tips": [
+        "今天全在老城步行圈 + 一次青岩往返。早餐必须赶早——肠旺面卖完即止。",
+        "把户外（黔灵山）放上午：贵州 10 月午后多阴雨，湿滑的石阶下午更难走。",
+        "酸汤按人头点鱼 / 牛肉，先问清是「按斤」还是「按份」计价，再让老板配菜。"
+      ],
+      "slots": [
+        {
+          "period": "morning",
+          "kind": "eat",
+          "name": "蔡家街（早餐巷）",
+          "time": "07:30–09:00",
+          "lat": 26.582255,
+          "lng": 106.713323,
+          "review": "只有 200 米，却被贵阳人视作最有烟火气的美食打卡地：金牌罗记肠旺面、小满牛肉粉、忆苗香老酸汤、玉学家烫菜都在这条街上。",
+          "openingHours": "约 06:30–14:00（多数摊档卖完即止）",
+          "transport": {
+            "mode": "地铁 1/2 号线 喷水池站 H 口步行",
+            "fare": "—",
+            "duration": "步行 5–8 分钟"
+          },
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/%E8%B4%B5%E9%98%B3%E5%B8%82%EF%BC%8C%E8%B4%B5%E5%B7%9E_202403_2.jpg?width=900"
+        },
+        {
+          "period": "morning",
+          "kind": "visit",
+          "name": "黔灵山公园（消食）",
+          "time": "09:30–11:30",
+          "lat": 26.601582,
+          "lng": 106.690369,
+          "review": "贵阳人的后山，猕猴成群（别手提塑料袋，会被抢）；爬到弘福寺能俯瞰老城，正好把早餐消化掉。",
+          "openingHours": "约 06:30–21:00",
+          "ticketPrice": "门票约 ¥5（参考）",
+          "transport": {
+            "mode": "地铁 3 号线 黔灵山公园站",
+            "fare": "约 ¥2–3",
+            "duration": "约 10 分钟"
+          },
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/%E9%BB%94%E7%81%B5%E5%B1%B1_%E5%8D%97%E9%97%A8.jpg?width=900"
+        },
+        {
+          "period": "noon",
+          "kind": "eat",
+          "name": "护国路 · 丝娃娃",
+          "time": "12:00–13:30",
+          "lat": 26.578794,
+          "lng": 106.713875,
+          "review": "米皮自己卷、蘸水是灵魂；护国路与民生路互邻，卷完还能顺手买一份香酥鸭。",
+          "openingHours": "约 10:30–21:00",
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/%E4%B8%9D%E5%A8%83%E5%A8%83_%2828664736712%29.jpg?width=900"
+        },
+        {
+          "period": "afternoon",
+          "kind": "visit",
+          "name": "青岩古镇（下午半天）",
+          "time": "14:30–18:30",
+          "lat": 26.333928,
+          "lng": 106.683347,
+          "review": "600 年屯堡石头城，来这儿主要是为了吃：状元蹄、鸡辣角、玫瑰糖、双花醋、糕粑稀饭。下午人比上午少。",
+          "openingHours": "古镇全天开放，店铺约 09:00–20:00",
+          "ticketPrice": "古镇免费；小景点联票约 ¥80（参考）",
+          "transport": {
+            "mode": "打车 / 自驾（或 210 路公交）",
+            "fare": "打车单程约 ¥60–80",
+            "duration": "约 50–60 分钟"
+          },
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Qingyan_Ancient_Town%2C_Guiyang.jpg?width=900"
+        },
+        {
+          "period": "evening",
+          "kind": "eat",
+          "name": "晚饭 · 酸汤（青云路 / 状元街区）",
+          "time": "19:30–21:00",
+          "lat": 26.569698,
+          "lng": 106.700106,
+          "review": "青云路的「贵厨酸汤牛肉」、状元街区的「胡子哥酸汤牛肉」都是本地人气店；想吃鱼就找老凯里、亮欢寨这类老牌酸汤鱼馆。",
+          "openingHours": "约 11:00–21:30",
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/%E9%85%B8%E6%B1%A4%E7%89%9B%E8%82%89.jpg?width=900"
+        },
+        {
+          "period": "night",
+          "kind": "eat",
+          "name": "青云路步行街 · 青云市集",
+          "time": "21:30–00:00",
+          "lat": 26.5701,
+          "lng": 106.7005,
+          "review": "官方口径里贵阳人的「深夜食堂」：周记留一手特色烤鱼、华仔龙虾、但家香酥鸭、丝娃娃一条街排开。",
+          "openingHours": "约 17:00–次日 01:00",
+          "transport": {
+            "mode": "从老城打车",
+            "fare": "约 ¥12–18",
+            "duration": "约 10 分钟"
+          }
+        }
+      ],
+      "dining": [
+        {
+          "meal": "早餐",
+          "place": "蔡家街",
+          "hours": "约 06:30–14:00（卖完即止）",
+          "dishes": [
+            {
+              "name": "金牌罗记肠旺面",
+              "price": "¥12"
+            },
+            {
+              "name": "小满牛肉粉",
+              "price": "¥13"
+            },
+            {
+              "name": "忆苗香老酸汤（烫菜）",
+              "price": "¥15–25"
+            }
+          ],
+          "tip": "肠旺面要「加一份脆哨 + 溏心蛋」，这是本地吃法。"
+        },
+        {
+          "meal": "午餐",
+          "place": "护国路 · 丝娃娃",
+          "hours": "约 10:30–21:00",
+          "dishes": [
+            {
+              "name": "丝娃娃（一份米皮 + 配菜）",
+              "price": "¥10–15"
+            },
+            {
+              "name": "蘸水（原汤 / 酸汤）",
+              "price": "¥3"
+            },
+            {
+              "name": "米豆腐",
+              "price": "¥8"
+            }
+          ],
+          "tip": "先要一份原汤蘸水试辣度，贵州的辣是「糊辣椒 + 折耳根」，不行就再点酸汤的。"
+        },
+        {
+          "meal": "下午茶",
+          "place": "青岩古镇",
+          "hours": "约 09:00–20:00",
+          "dishes": [
+            {
+              "name": "状元蹄（卤猪脚）",
+              "price": "¥30"
+            },
+            {
+              "name": "鸡辣角",
+              "price": "¥20"
+            },
+            {
+              "name": "玫瑰糖 / 玫瑰酱",
+              "price": "¥15"
+            },
+            {
+              "name": "糕粑稀饭",
+              "price": "¥8"
+            }
+          ],
+          "tip": "双花醋和玫瑰糖是能带走的，先尝后买。"
+        },
+        {
+          "meal": "晚餐",
+          "place": "酸汤牛肉 / 酸汤鱼（青云路 · 状元街区）",
+          "hours": "约 11:00–21:30",
+          "dishes": [
+            {
+              "name": "酸汤牛肉（按份）",
+              "price": "¥60–80 / 人"
+            },
+            {
+              "name": "酸汤鱼（江团 / 黄辣丁，按斤）",
+              "price": "约 ¥100 / 人"
+            },
+            {
+              "name": "蘸水 + 折耳根",
+              "price": "¥3–5"
+            }
+          ],
+          "tip": "节假日人多，建议 11:00 或 20:30 后去，或提前电话订位。"
+        },
+        {
+          "meal": "夜宵",
+          "place": "青云路步行街 / 青云市集",
+          "hours": "约 17:00–次日 01:00",
+          "dishes": [
+            {
+              "name": "但家香酥鸭",
+              "price": "¥30"
+            },
+            {
+              "name": "周记留一手烤鱼",
+              "price": "¥80 起"
+            },
+            {
+              "name": "华仔龙虾",
+              "price": "¥120 起"
+            }
+          ],
+          "tip": "一条街扫着吃，别在一家吃饱。"
+        }
+      ],
+      "alternatives": [
+        {
+          "label": "方案A（默认）青岩古镇",
+          "summary": "下午半天往返，古镇小吃一站吃齐：状元蹄、鸡辣角、玫瑰糖、糕粑稀饭。车程约 50–60 分钟。"
+        },
+        {
+          "label": "方案B 花溪（牛肉粉发源地）",
+          "summary": "改去花溪：花溪牛肉粉 + 花溪公园 / 十里河滩，路程更近（地铁 3 号线可到花溪公园站），适合不想跑远的一天。"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-05",
+      "weekday": "周一",
+      "theme": "安顺 · 贵州小吃天花板",
+      "tips": [
+        "贵阳北 → 安顺西 只要 29–37 分钟、二等座 ¥41–56，几乎 10–15 分钟一班，基本可以当公交用。",
+        "安顺无地铁：安顺西站到老城（顾府街）打车 20–30 分钟，回程至少留 40 分钟余量。",
+        "今天纯扫街，按「一样买一份、两人分着吃」的节奏走，不然三样就饱了。"
+      ],
+      "slots": [
+        {
+          "period": "morning",
+          "kind": "move",
+          "name": "贵阳北站 → 安顺西站",
+          "time": "07:35 → 08:08",
+          "lat": 26.622835,
+          "lng": 106.672454,
+          "review": "沪昆高铁支线高频发车，随便挑一班都行；也可先吃一碗老素粉再上车。",
+          "transport": {
+            "mode": "高铁 C6381 等",
+            "fare": "二等座 ¥41–56",
+            "duration": "29–37 分钟"
+          },
+          "needsBooking": true,
+          "leadDays": 12
+        },
+        {
+          "period": "morning",
+          "kind": "eat",
+          "name": "顾府街（安顺小吃一条街）",
+          "time": "08:40–11:30",
+          "lat": 26.247445,
+          "lng": 105.933075,
+          "review": "安顺老城的市井美食核心，旁边是国贸与安顺古城历史文化街区；裹卷、破酥包、夺夺粉、小锅凉粉、荞凉粉、牛肉粉从头吃到尾。",
+          "openingHours": "约 07:00–21:00（早餐档最全在 08:00–10:30）",
+          "transport": {
+            "mode": "安顺西站打车",
+            "fare": "约 ¥25–35",
+            "duration": "20–30 分钟"
+          },
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Hongshao_Niuroufen_at_a_restaurant_in_Xixiu%2C_Anshun_%2820230404120748%29.jpg?width=900"
+        },
+        {
+          "period": "noon",
+          "kind": "visit",
+          "name": "安顺文庙 + 儒林路古城（消食）",
+          "time": "12:00–14:00",
+          "lat": 26.252572,
+          "lng": 105.932102,
+          "review": "贵州保存最完整的文庙之一，石雕龙柱出名；出来沿儒林路古城步行街慢慢走，边走边找下一摊。",
+          "openingHours": "约 08:30–17:30",
+          "ticketPrice": "文庙门票约 ¥20（参考）",
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Anshun_Wenmiao_2014.04.28_15-49-23.jpg?width=900"
+        },
+        {
+          "period": "afternoon",
+          "kind": "visit",
+          "name": "虹山湖公园",
+          "time": "15:00–16:30",
+          "lat": 26.26397,
+          "lng": 105.939501,
+          "review": "老城北侧的城市湖，环湖步道走一圈正好清口；回程顺路还能再扫一次顾府街。",
+          "openingHours": "全天开放",
+          "ticketPrice": "免费",
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/%E5%AE%89%E9%A1%BA%EF%BC%8C%E8%B4%B5%E5%B7%9E_202403.jpg?width=900"
+        },
+        {
+          "period": "evening",
+          "kind": "move",
+          "name": "安顺西站 → 贵阳北站",
+          "time": "18:50 → 19:20",
+          "lat": 26.202134,
+          "lng": 105.872345,
+          "review": "晚间班次密集；若还想在安顺吃晚饭，可改坐 19:20 之后的班次回贵阳。",
+          "transport": {
+            "mode": "高铁 G1751 等",
+            "fare": "二等座 ¥46.5",
+            "duration": "30 分钟"
+          },
+          "needsBooking": true,
+          "leadDays": 12
+        },
+        {
+          "period": "night",
+          "kind": "eat",
+          "name": "贵阳 · 曹状元街（状元街区）",
+          "time": "20:30–23:00",
+          "lat": 26.576418,
+          "lng": 106.710849,
+          "review": "以曹状元街为中心，串起南横街、护国路：南门口肠旺面、李兰英湖南面、满意烤鸡，是贵阳人半夜的第二个胃。",
+          "openingHours": "约 17:00–次日 01:00",
+          "transport": {
+            "mode": "地铁 1 号线 + 步行",
+            "fare": "约 ¥2",
+            "duration": "约 15 分钟"
+          }
+        }
+      ],
+      "dining": [
+        {
+          "meal": "早餐",
+          "place": "贵阳（上车前）/ 高铁上",
+          "hours": "—",
+          "dishes": [
+            {
+              "name": "老素粉",
+              "price": "¥10"
+            },
+            {
+              "name": "糯米饭 + 脆哨",
+              "price": "¥8"
+            }
+          ],
+          "tip": "留肚子——安顺的早餐才是今天的正餐。"
+        },
+        {
+          "meal": "午餐",
+          "place": "安顺 · 顾府街小吃街",
+          "hours": "约 07:00–21:00",
+          "dishes": [
+            {
+              "name": "裹卷（安顺名物）",
+              "price": "¥8–10"
+            },
+            {
+              "name": "破酥包",
+              "price": "¥5–6"
+            },
+            {
+              "name": "夺夺粉",
+              "price": "¥15"
+            },
+            {
+              "name": "小锅凉粉",
+              "price": "¥10"
+            },
+            {
+              "name": "荞凉粉",
+              "price": "¥8"
+            },
+            {
+              "name": "安顺牛肉粉（红烧 / 清炖）",
+              "price": "¥15"
+            }
+          ],
+          "tip": "裹卷分「素裹卷」和「荤裹卷」，先各来一个；破酥包要现出炉的才起酥。"
+        },
+        {
+          "meal": "下午加餐",
+          "place": "安顺古城 · 儒林路 / 顾府街",
+          "hours": "约 09:00–20:00",
+          "dishes": [
+            {
+              "name": "镇宁波波糖",
+              "price": "¥20 / 盒"
+            },
+            {
+              "name": "油炸粑稀饭",
+              "price": "¥8"
+            },
+            {
+              "name": "旧州鸡辣子（可带走）",
+              "price": "¥25 / 瓶"
+            }
+          ],
+          "tip": "波波糖和鸡辣子都是伴手礼，安顺买比贵阳便宜。"
+        },
+        {
+          "meal": "晚餐",
+          "place": "回贵阳 · 烙锅",
+          "hours": "约 17:00–次日 02:00",
+          "dishes": [
+            {
+              "name": "贵州烙锅（按份拼）",
+              "price": "¥40–60 / 人"
+            },
+            {
+              "name": "蘸水（糊辣椒 + 折耳根）",
+              "price": "含"
+            }
+          ],
+          "tip": "烙锅是「自己动手的铁板烧」，洋芋、豆腐、五花肉、黄粑都可以上。"
+        },
+        {
+          "meal": "夜宵",
+          "place": "贵阳 · 状元街区（曹状元街）",
+          "hours": "约 17:00–次日 01:00",
+          "dishes": [
+            {
+              "name": "满意烤鸡",
+              "price": "¥40"
+            },
+            {
+              "name": "南门口肠旺面",
+              "price": "¥12"
+            },
+            {
+              "name": "李兰英湖南面",
+              "price": "¥13"
+            }
+          ],
+          "tip": "肠旺面有「红油」和「免红」两种，怕辣说免红。"
+        }
+      ],
+      "alternatives": [
+        {
+          "label": "方案A（默认）安顺一日往返",
+          "summary": "高铁 30 分钟、票价 40 多元，把顾府街小吃扫一遍，晚上回贵阳继续夜宵。最省事。"
+        },
+        {
+          "label": "方案B 凯里（酸汤鱼发源地）",
+          "summary": "贵阳北 → 凯里南高铁约 40 分钟，酸汤更正宗、还带一点苗寨氛围；代价是来回多花 2 小时，吃的东西没有安顺那么杂。"
+        },
+        {
+          "label": "方案C 黄果树半日",
+          "summary": "⚠️ 必须提前在「安旅通」小程序预约（每日限流 5 万人、水帘洞另限 6000 人），官方建议游览时间长、跨景点步行约 5 小时——会把一整天吃掉，且和「晚上回贵阳吃夜市」冲突。"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-06",
+      "weekday": "周二",
+      "theme": "遵义 · 羊肉粉与豆花面",
+      "tips": [
+        "贵阳北 → 遵义 45–53 分钟、二等座 ¥39–61，从早上 07:18 一直开到 21:35，往返很轻松。",
+        "⚠️ 车票一定看清「遵义」还是「遵义南」——遵义南站在播州区，离老城远得多。",
+        "遵义会议会址免费但要预约（免费不免票），国庆期间周一不闭馆，开放 8:30–21:00。"
+      ],
+      "slots": [
+        {
+          "period": "morning",
+          "kind": "move",
+          "name": "贵阳北站 → 遵义站",
+          "time": "07:30 → 08:20",
+          "lat": 26.622835,
+          "lng": 106.672454,
+          "review": "渝贵铁路，45–53 分钟；到遵义站后打车进老城 15–25 分钟。",
+          "transport": {
+            "mode": "高铁 G / D 字头",
+            "fare": "二等座 ¥39–61",
+            "duration": "45–53 分钟"
+          },
+          "needsBooking": true,
+          "leadDays": 12
+        },
+        {
+          "period": "morning",
+          "kind": "eat",
+          "name": "捞沙巷（遵义小吃街）",
+          "time": "08:40–11:00",
+          "lat": 27.690116,
+          "lng": 106.917289,
+          "review": "遵义老城的招牌美食一条街，和遵义会议会址步行可达；羊肉粉、豆花面、鸡蛋糕、鸭溪凉粉都在这条巷子里。",
+          "openingHours": "约 06:30–21:00（早餐档 07:00–10:00 最全）",
+          "transport": {
+            "mode": "遵义站打车",
+            "fare": "约 ¥15–25",
+            "duration": "15–25 分钟"
+          },
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Zunyi_mutton_rice_noodle_soup_%2820180220124801%29.jpg?width=900"
+        },
+        {
+          "period": "noon",
+          "kind": "visit",
+          "name": "遵义会议会址",
+          "time": "11:30–13:00",
+          "lat": 27.691543,
+          "lng": 106.916122,
+          "review": "就在捞沙巷隔壁，吃完拐个弯就到；免费不免票，需公众号或现场扫码预约，凭二维码 + 身份证入馆。",
+          "openingHours": "8:30–21:00（20:30 停止入馆）；常规周一闭馆，法定节假日不闭馆",
+          "ticketPrice": "免费（须预约）",
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Zunyi_Conference_Site.jpg?width=900",
+          "needsBooking": true,
+          "leadDays": 3
+        },
+        {
+          "period": "afternoon",
+          "kind": "visit",
+          "name": "遵义老城 · 子尹路 / 红军街",
+          "time": "14:00–16:30",
+          "lat": 27.691392,
+          "lng": 106.915814,
+          "review": "会址、红军街、丁字口老国贸串成一个步行圈，消食顺便买遵义鸡蛋糕；老城没有专用停车场，建议打车来。",
+          "openingHours": "街区全天开放，店铺约 09:00–21:00",
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Zunyi_-_55410567063.jpg?width=900"
+        },
+        {
+          "period": "evening",
+          "kind": "move",
+          "name": "遵义站 → 贵阳北站",
+          "time": "17:30 → 18:20",
+          "lat": 27.66772,
+          "lng": 106.944353,
+          "review": "回程班次同样密集；想吃顿正餐再走就改坐 19:00 之后的班次。",
+          "transport": {
+            "mode": "高铁 G / D 字头",
+            "fare": "二等座 ¥39–61",
+            "duration": "45–53 分钟"
+          },
+          "needsBooking": true,
+          "leadDays": 12
+        },
+        {
+          "period": "night",
+          "kind": "eat",
+          "name": "贵阳夜宵 · 老素粉 + 烤脑花",
+          "time": "21:00–23:00",
+          "lat": 26.58274,
+          "lng": 106.709769,
+          "review": "回老城正新街一带收尾：小推车一个挨一个，锅巴糍粑、恋爱豆腐果、洋芋粑都在这儿。",
+          "openingHours": "约 18:00–次日 01:00"
+        }
+      ],
+      "dining": [
+        {
+          "meal": "早餐",
+          "place": "遵义 · 捞沙巷",
+          "hours": "约 06:30–21:00",
+          "dishes": [
+            {
+              "name": "遵义羊肉粉（加羊杂 / 加肉）",
+              "price": "¥15–20"
+            },
+            {
+              "name": "豆花面（干拌 + 蘸水）",
+              "price": "¥12"
+            },
+            {
+              "name": "鸭溪凉粉",
+              "price": "¥10"
+            }
+          ],
+          "tip": "羊肉粉的灵魂是那勺油辣椒和蒜泥水；豆花面分干拌和蘸水两种吃法，先各来一碗。"
+        },
+        {
+          "meal": "午餐",
+          "place": "遵义老城（会址 / 丁字口一带）",
+          "hours": "约 11:00–21:00",
+          "dishes": [
+            {
+              "name": "乌江豆腐鱼",
+              "price": "¥80 / 人"
+            },
+            {
+              "name": "遵义鸡蛋糕",
+              "price": "¥15 / 盒"
+            },
+            {
+              "name": "米皮",
+              "price": "¥8"
+            }
+          ],
+          "tip": "乌江豆腐鱼按斤点，两人点一条小一点的鱼就够。"
+        },
+        {
+          "meal": "下午加餐",
+          "place": "遵义老城",
+          "hours": "约 09:00–21:00",
+          "dishes": [
+            {
+              "name": "尚稽豆腐皮",
+              "price": "¥20"
+            },
+            {
+              "name": "酸鲊肉",
+              "price": "¥30"
+            },
+            {
+              "name": "遵义羊肉粉（再一碗）",
+              "price": "¥15"
+            }
+          ],
+          "tip": "尚稽豆腐皮和酸鲊肉都能带走，回贵阳当夜宵配酒。"
+        },
+        {
+          "meal": "夜宵",
+          "place": "回贵阳 · 正新街",
+          "hours": "约 18:00–次日 01:00",
+          "dishes": [
+            {
+              "name": "老素粉",
+              "price": "¥10"
+            },
+            {
+              "name": "烤脑花",
+              "price": "¥15"
+            },
+            {
+              "name": "余孃洋芋粑",
+              "price": "¥8"
+            },
+            {
+              "name": "恋爱豆腐果",
+              "price": "¥6"
+            }
+          ],
+          "tip": "恋爱豆腐果要现烤的，中间夹折耳根蘸水——不吃折耳根记得提前说。"
+        }
+      ],
+      "alternatives": [
+        {
+          "label": "方案A（默认）遵义老城一日往返",
+          "summary": "早上高铁去、晚上高铁回，捞沙巷 + 会址 + 老城步行圈，全程不用挪酒店。"
+        },
+        {
+          "label": "方案B 遵义 + 海龙屯",
+          "summary": "下午改去海龙屯（世界文化遗产土司遗址，在汇川区，需包车或自驾约 1 小时），老城的吃改成早 + 晚两顿。"
+        },
+        {
+          "label": "方案C 遵义住一晚，10/7 从遵义返长沙",
+          "summary": "10/6 晚住遵义老城（次日一早再吃一碗羊肉粉），10/7 从遵义站直接返长沙——⚠️ 遵义→长沙南的直达车次本次未核实，务必先在 12306 确认后再改行程。"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-07",
+      "weekday": "周三",
+      "theme": "贵阳收尾 · 打包带走",
+      "tips": [
+        "10/7 是国庆假期最后一天 = 全国返程最高峰，返程票最难抢（9/23 10:00 开售），务必提前挂候补。",
+        "老城到贵阳北站：地铁 1 号线喷水池站 5 站、12–15 分钟；国庆大客流，从出门到上车建议留 60–75 分钟。",
+        "⚠️ 先确认你的返程车是「贵阳北」还是「贵阳东」——贵阳东无地铁直达，要多留 30–40 分钟。"
+      ],
+      "slots": [
+        {
+          "period": "morning",
+          "kind": "eat",
+          "name": "民生路 + 正新街（早市收尾）",
+          "time": "07:30–10:00",
+          "lat": 26.582734,
+          "lng": 106.712029,
+          "review": "最后半天把老城没吃到的补齐：但家香酥鸭、丁家脆哨、徐记碗耳糕、高记烤馒头、余孃洋芋粑、锅巴糍粑。",
+          "openingHours": "约 07:00–20:00（早餐档 07:00–10:00）",
+          "transport": {
+            "mode": "地铁 1/2 号线 喷水池站 H 口步行",
+            "fare": "—",
+            "duration": "步行 3–6 分钟"
+          }
+        },
+        {
+          "period": "noon",
+          "kind": "eat",
+          "name": "最后一顿 · 豆米火锅",
+          "time": "11:00–12:30",
+          "lat": 26.583,
+          "lng": 106.7125,
+          "review": "用一锅豆米火锅（或最后一碗丝娃娃）给这趟行程收尾，离店就能直接去坐地铁。",
+          "openingHours": "约 10:00–21:00",
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/20250702_Shan_Shi_Liu_Guizhou_Cuisine_at_Zhengdong_MIXC.jpg?width=900"
+        },
+        {
+          "period": "afternoon",
+          "kind": "move",
+          "name": "贵阳北站 → 长沙南站",
+          "time": "14:18 → 17:12",
+          "lat": 26.622835,
+          "lng": 106.672454,
+          "review": "G1374：2h54m、二等座约 ¥314.5，17:12 就到长沙；行李多的话 13:00 前从老城出发。",
+          "transport": {
+            "mode": "高铁 G1374",
+            "fare": "二等座约 ¥314.5",
+            "duration": "2h54m"
+          },
+          "needsBooking": true,
+          "leadDays": 10,
+          "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/North_Guiyang_Railway_Station_2015.10.7.jpg?width=900"
+        }
+      ],
+      "dining": [
+        {
+          "meal": "早餐",
+          "place": "民生路 / 正新街",
+          "hours": "约 07:00–20:00",
+          "dishes": [
+            {
+              "name": "丁家脆哨（按袋）",
+              "price": "¥20"
+            },
+            {
+              "name": "但家香酥鸭",
+              "price": "¥30"
+            },
+            {
+              "name": "徐记碗耳糕",
+              "price": "¥6"
+            },
+            {
+              "name": "余孃洋芋粑",
+              "price": "¥8"
+            },
+            {
+              "name": "恋爱豆腐果",
+              "price": "¥6"
+            }
+          ],
+          "tip": "脆哨、糊辣椒面都是能带上高铁的伴手礼，脆哨买真空装的。"
+        },
+        {
+          "meal": "午餐",
+          "place": "老城 · 豆米火锅 / 丝娃娃",
+          "hours": "约 10:00–21:00",
+          "dishes": [
+            {
+              "name": "豆米火锅（按人）",
+              "price": "¥40–60 / 人"
+            },
+            {
+              "name": "丝娃娃（最后一份）",
+              "price": "¥10–15"
+            }
+          ],
+          "tip": "火锅汤底偏酸辣，吃完别急着走，留 20 分钟缓一缓再赶地铁。"
+        },
+        {
+          "meal": "带走",
+          "place": "老城伴手礼清单",
+          "hours": "—",
+          "dishes": [
+            {
+              "name": "脆哨 / 软哨",
+              "price": "¥20–30 / 袋"
+            },
+            {
+              "name": "糊辣椒面",
+              "price": "¥15"
+            },
+            {
+              "name": "青岩玫瑰糖 / 双花醋",
+              "price": "¥15–25"
+            },
+            {
+              "name": "镇宁波波糖（安顺买更便宜）",
+              "price": "¥20 / 盒"
+            },
+            {
+              "name": "旧州鸡辣子",
+              "price": "¥25 / 瓶"
+            }
+          ],
+          "tip": "液体（双花醋）要托运或别带；辣椒面、脆哨、玫瑰糖都可以随身。"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- ====== 渲染逻辑 ====== -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function () {
+  var trip = JSON.parse(document.getElementById('trip-data').textContent);
+
+  // 1. 出发前待办清单
+  document.getElementById('pretrip-todo').innerHTML =
+    renderChecklistHTML(computeReminders(trip.startDate, trip.reminders));
+
+  // 2. 行前须知
+  var pg = trip.preTrip;
+  document.getElementById('pretrip-grid').innerHTML = ''
+    + '<div class="pretrip-item weather"><b>🌡️ 天气 · ' + escHTML(pg.weather.summary) + '</b>' + escHTML(pg.weather.typhoon) + '</div>'
+    + '<div class="pretrip-item"><b>🧳 穿搭</b>' + escHTML(pg.packing) + '</div>'
+    + '<div class="pretrip-item"><b>💳 支付</b>' + escHTML(pg.payment) + '</div>'
+    + '<div class="pretrip-item apps"><b>📱 必备 App</b>' + pg.apps.map(function (a) { return '<span>' + escHTML(a) + '</span>'; }).join('') + '</div>'
+    + '<div class="pretrip-item"><b>🎫 购票时机</b>' + escHTML(pg.ticketTip) + '</div>';
+
+  // 3. 高铁票券
+  var tickets = (trip.flights.booked || []).map(function (f) {
+    return '<div class="ticket done"><div class="t-badge">已预订</div>'
+      + '<div class="t-head"><span>' + escHTML(f.label) + '</span><span class="code">' + escHTML(f.code) + '</span></div>'
+      + '<div class="t-time">' + escHTML(f.time) + '</div>'
+      + (f.note ? '<div class="t-note">' + escHTML(f.note) + '</div>' : '')
+      + '</div>';
+  }).concat((trip.flights.candidates || []).map(function (f, i) {
+    var reco = i === 0 ? ' reco' : '';
+    return '<div class="ticket' + reco + '">'
+      + (i === 0 ? '<div class="t-badge">首选</div>' : '')
+      + '<div class="t-head"><span>' + escHTML(f.label) + '</span><span class="code">' + escHTML(f.code) + '</span></div>'
+      + '<div class="t-time">' + escHTML(f.time) + '</div>'
+      + (f.note ? '<div class="t-note">' + escHTML(f.note) + '</div>' : '')
+      + '</div>';
+  })).join('');
+  if (tickets) {
+    document.getElementById('flight-grid').innerHTML = tickets;
+  } else {
+    document.getElementById('flight-grid').innerHTML = '<div class="t-note">待补充</div>';
+  }
+  if (trip.trainNote) document.getElementById('train-note').textContent = trip.trainNote;
+
+  // 4. 酒店
+  var tierCls = { '经济': 'econ', '中档': 'mid', '高端': 'hi' };
+  document.getElementById('hotel-grid').innerHTML = trip.hotelAreas.map(function (area) {
+    return '<div class="hotel-area"><h3>📍 ' + escHTML(area.area) + '</h3>'
+      + '<div class="reason">' + escHTML(area.reason) + '</div>'
+      + '<div class="hotel-opts">' + area.options.map(function (o) {
+          return '<div class="hotel-opt"><span class="tier ' + (tierCls[o.tier] || 'mid') + '">' + escHTML(o.tier) + '</span>'
+            + '<div class="name">' + escHTML(o.name) + '</div>'
+            + '<div class="price">' + escHTML(o.priceRange) + '</div>'
+            + '<div class="note">' + escHTML(o.note) + '</div></div>';
+        }).join('') + '</div></div>';
+  }).join('');
+
+  // 5. 免责声明（正文已有静态全文，这里只补数据来源小字）
+  var dEl = document.getElementById('disclaimer');
+  var srcNote = (trip.dataSources && trip.dataSources.length)
+    ? '<div class="source-note">数据来源：' + trip.dataSources.map(function (d) {
+        return escHTML(d.name) + '（' + escHTML(d.scope) + (d.realtime ? '，实时性由其官方保证' : '') + '）';
+      }).join('；') + '</div>'
+    : '';
+  if (srcNote) dEl.innerHTML = dEl.innerHTML + srcNote;
+
+  // 6. 招牌菜速查
+  if (trip.dishIndex && trip.dishIndex.length) {
+    document.getElementById('dish-index').innerHTML = trip.dishIndex.map(function (c) {
+      return '<div class="di-city"><h3>' + escHTML(c.city) + '</h3>'
+        + '<div class="di-list">' + c.dishes.map(function (d) { return '<span>' + escHTML(d) + '</span>'; }).join('') + '</div></div>';
+    }).join('');
+  } else {
+    document.getElementById('dish-index').parentNode.style.display = 'none';
+  }
+
+  // 7. 每日时间轴 + 餐饮
+  var perLabel = { morning: '早', noon: '午', afternoon: '下午', evening: '晚', night: '夜宵' };
+  document.getElementById('days-wrap').innerHTML = trip.days.map(function (day, di) {
+    var slots = day.slots.map(function (s) {
+      var cls = s.kind === 'eat' ? ' eat' : (s.kind === 'move' ? ' move' : '');
+      var badge = s.needsBooking ? reminderBadgeHTML(s.leadDays) : '';
+      var photo = s.photo
+        ? '<div class="photo"><img src="' + escHTML(s.photo) + '" alt="' + escHTML(s.name) + '" loading="lazy" '
+          + 'onerror="this.style.display=\'none\';this.parentNode.querySelector(\'.ph\').style.display=\'flex\';" >'
+          + '<span class="ph" style="display:none">📍 ' + escHTML(s.name) + '</span></div>'
+        : '';
+      var meta = '';
+      if (s.transport) meta += '<span>🚌 ' + escHTML(s.transport.mode) + ' · ' + escHTML(s.transport.fare) + ' · ' + escHTML(s.transport.duration) + '</span>';
+      if (s.openingHours) meta += '<span>🕒 ' + escHTML(s.openingHours) + '</span>';
+      if (s.closedDays) meta += '<span>🚫 ' + escHTML(s.closedDays) + '</span>';
+      if (s.ticketPrice) meta += '<span>🎫 ' + escHTML(s.ticketPrice) + '</span>';
+      if (s.seasonal) meta += '<span>✨ ' + escHTML(s.seasonal) + '</span>';
+      return '<div class="slot' + cls + '">'
+        + '<span class="per">' + (perLabel[s.period] || '') + '</span>'
+        + '<span class="s-time">' + escHTML(s.time) + '</span>'
+        + '<div class="s-name">' + escHTML(s.name) + badge + '</div>'
+        + '<div class="s-review">' + escHTML(s.review) + '</div>'
+        + (meta ? '<div class="s-meta">' + meta + '</div>' : '')
+        + photo
+        + '</div>';
+    }).join('');
+
+    var dining = (day.dining && day.dining.length)
+      ? '<div class="dining-head">🍜 今日必吃 <span class="h-rule"></span></div><div class="dining">'
+        + day.dining.map(function (d) {
+            return '<div class="meal-card"><div class="meal">' + escHTML(d.meal) + ' · ' + escHTML(d.place)
+              + (d.hours ? ' <span class="hours">' + escHTML(d.hours) + '</span>' : '') + '</div>'
+              + d.dishes.map(function (dish) {
+                  return '<div class="dish"><span>' + escHTML(dish.name) + '</span><span class="price">' + escHTML(dish.price) + '</span></div>';
+                }).join('')
+              + (d.tip ? '<div class="tip">💡 ' + escHTML(d.tip) + '</div>' : '')
+              + '</div>'
+          }).join('') + '</div>'
+      : '';
+
+    var alts = (day.alternatives && day.alternatives.length)
+      ? '<div class="alts">' + day.alternatives.map(function (a) {
+          return '<div class="alt"><b>' + escHTML(a.label) + '</b>：' + escHTML(a.summary) + '</div>';
+        }).join('') + '</div>'
+      : '';
+
+    return '<div class="card day">'
+      + '<div class="day-head"><div class="day-num">' + (di + 1) + '</div>'
+      + '<div><h3>' + escHTML(day.date) + ' · ' + escHTML(day.weekday) + '</h3>'
+      + '<div class="day-theme">' + escHTML(day.theme) + '</div></div></div>'
+      + (day.tips && day.tips.length
+          ? '<div class="day-tips">' + day.tips.map(function (t) { return '<span>' + escHTML(t) + '</span>'; }).join('') + '</div>'
+          : '')
+      + '<div class="timeline">' + slots + '</div>'
+      + dining
+      + alts
+      + '</div>';
+  }).join('');
+
+  // 8. 全程贴士
+  document.getElementById('tips-list').innerHTML = trip.tips.map(function (t) { return '<li>' + escHTML(t) + '</li>'; }).join('');
+
+  // 9. 地图点位（按行程顺序）
+  var points = [];
+  trip.days.forEach(function (day) {
+    (day.slots || []).forEach(function (s) {
+      if (typeof s.lat === 'number' && typeof s.lng === 'number') {
+        points.push({ lat: s.lat, lng: s.lng, name: s.name, time: s.time });
+      }
+    });
+  });
+  if (typeof L !== 'undefined') {
+    initTravelMap('map', points);
+  } else {
+    var m = document.getElementById('map');
+    m.style.display = 'flex';
+    m.style.alignItems = 'center';
+    m.style.justifyContent = 'center';
+    m.style.color = '#b6a294';
+    m.style.padding = '20px';
+    m.style.textAlign = 'center';
+    m.textContent = '⚠️ 地图组件未能加载（需要联网），文字行程仍可正常查看';
+  }
+})();
+</script>
+
+</body>
+</html>
